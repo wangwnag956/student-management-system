@@ -62,3 +62,13 @@ li {
     margin-bottom: 8px;
     border-radius: 6px;
 }
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+
+li input[type="checkbox"] {
+  margin-right: 10px;
+}
