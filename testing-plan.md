@@ -8,11 +8,11 @@ The tests will check whether each function gives the expected result for valid i
 
 The main areas to be tested are:
 
-- Editing a task
-- Deleting a task
-- Setting a deadline
-- Setting task priority
-- Searching for a task
+Editing a task
+Deleting a task
+Setting a deadline
+Setting task priority
+Searching for a task
 
 Automated tests will be written before or during the implementation of the functions. Each user story will have at least three test cases.
 
@@ -21,11 +21,11 @@ Automated tests will be written before or during the implementation of the funct
 
 The following five user stories were selected for testing:
 
-- US2: Edit Task
-- US3: Delete Task
-- US4: Set Deadline
-- US6: Set Task Priority
-- US8: Search Task
+US2: Edit Task
+US3: Delete Task
+US4: Set Deadline
+US6: Set Task Priority
+US8: Search Task
 
 ## 3. Test Cases
 
