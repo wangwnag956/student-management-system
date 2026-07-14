@@ -30,95 +30,43 @@ The following five user stories were selected for testing:
 ## 3. Test Cases
 
 ### US1: Add Task
-
-**Test Case 1: Add a task with default values**  
-- **Input / Action:** Add a task with the title `Finish assignment`.
-- **Expected Result:** A new task is created with title `Finish assignment`, priority `Medium`, and completed status `false`.
-
-**Test Case 2: Add a task with an empty title**  
-- **Input / Action:** Try to add a task with an empty title.
-- **Expected Result:** No task is created.
-
-**Test Case 3: Add a task with deadline and priority**  
-- **Input / Action:** Add a task with title `Study for exam`, deadline `2026-07-20`, and priority `High`.
-- **Expected Result:** A new task is created with the selected deadline and priority.
-
----
+| Test Case | Input / Action | Expected Result |
+|---|---|---|
+| Add a task with a valid title | Add task: `Finish homework` | A new task is added with the title `Finish homework` |
+| Add a task with an empty title | Add task: `` | The task is not added |
+| Add multiple tasks | Add `Task 1`, then add `Task 2` | Both tasks appear in the task list |
 
 ### US2: Edit Task
-
-**Test Case 1: Edit an existing task title**  
-- **Input / Action:** Change `Finish assignment` to `Finish Java assignment`.
-- **Expected Result:** The task title is updated.
-
-**Test Case 2: Edit a task with an empty title**  
-- **Input / Action:** Try to change a task title to an empty value.
-- **Expected Result:** The task title is not changed.
-
-**Test Case 3: Edit a task that does not exist**  
-- **Input / Action:** Try to edit a task using an ID that does not exist.
-- **Expected Result:** No task is changed.
-
----
+| Test Case | Input / Action | Expected Result |
+|---|---|---|
+| Edit an existing task | Change `Old task` to `New task` | The task title is updated to `New task` |
+| Edit a task with an empty title | Change an existing task title to `` | The task title is not changed |
+| Edit a task that does not exist | Edit task with an invalid index | No task is changed |
 
 ### US3: Delete Task
-
-**Test Case 1: Delete an existing task**  
-- **Input / Action:** Delete the task `Study for exam`.
-- **Expected Result:** The task is removed from the list.
-
-**Test Case 2: Delete only the selected task**  
-- **Input / Action:** Create three tasks and delete the second task.
-- **Expected Result:** Only the selected task is removed. The other tasks remain in the list.
-
-**Test Case 3: Delete a task that does not exist**  
-- **Input / Action:** Try to delete a task using an ID that does not exist.
-- **Expected Result:** The task list remains unchanged.
-
----
+| Test Case | Input / Action | Expected Result |
+|---|---|---|
+| Delete an existing task | Delete `Finish homework` | The selected task is removed |
+| Delete one task from multiple tasks | Add two tasks, then delete the first task | Only the selected task is removed |
+| Delete a task that does not exist | Delete task with an invalid index | The task list is not changed |
 
 ### US4: Set Deadline
-
-**Test Case 1: Set a deadline for an existing task**  
-- **Input / Action:** Set the deadline of a task to `2026-07-20`.
-- **Expected Result:** The deadline is stored for the task.
-
-**Test Case 2: Update an existing deadline**  
-- **Input / Action:** Change a task deadline from `2026-07-20` to `2026-07-25`.
-- **Expected Result:** The new deadline replaces the old deadline.
-
-**Test Case 3: Set a deadline for a task that does not exist**  
-- **Input / Action:** Try to set a deadline using an ID that does not exist.
-- **Expected Result:** No task is changed.
-
----
+| Test Case | Input / Action | Expected Result |
+|---|---|---|
+| Set a deadline for a task | Set deadline `2026-07-20` | The task deadline is saved as `2026-07-20` |
+| Update an existing deadline | Change deadline from `2026-07-20` to `2026-07-25` | The deadline is updated to `2026-07-25` |
+| Set a deadline for a task that does not exist | Use an invalid task index | No deadline is added |
 
 ### US6: Set Task Priority
-
-**Test Case 1: Set a valid priority**  
-- **Input / Action:** Set the priority of a task to `High`.
-- **Expected Result:** The task priority is changed to `High`.
-
-**Test Case 2: Set an invalid priority**  
-- **Input / Action:** Try to set the priority to `Urgent`.
-- **Expected Result:** The invalid priority is rejected and the task priority is not changed.
-
-**Test Case 3: Set priority for a task that does not exist**  
-- **Input / Action:** Try to set a priority using an ID that does not exist.
-- **Expected Result:** No task is changed.
-
----
+| Test Case | Input / Action | Expected Result |
+|---|---|---|
+| Set a valid priority | Set priority to `High` | The task priority becomes `High` |
+| Set an invalid priority | Set priority to `Urgent` | The priority is not changed |
+| Set priority for a task that does not exist | Use an invalid task index | No task is changed |
 
 ### US8: Search Task
-
-**Test Case 1: Search tasks by keyword**  
-- **Input / Action:** Search for `assignment`.
-- **Expected Result:** Tasks containing `assignment` in the title are returned.
-
-**Test Case 2: Search regardless of letter case**  
-- **Input / Action:** Search for `EXAM` when a task title contains `exam`.
-- **Expected Result:** Matching tasks are returned regardless of uppercase or lowercase letters.
-
-**Test Case 3: Search with no matching task**  
-- **Input / Action:** Search for `holiday` when no task contains that word.
-- **Expected Result:** An empty array is returned.
+| Test Case | Input / Action | Expected Result |
+|---|---|---|
+| Search for an existing task | Search `homework` | Matching task(s) are returned |
+| Search is case-insensitive | Search `HOMEWORK` for task `homework` | Matching task(s) are returned |
+| Search for a task that does not exist | Search `shopping` | An empty result is returned |
