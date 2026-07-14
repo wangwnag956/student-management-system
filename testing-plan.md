@@ -16,7 +16,6 @@ The main areas to be tested are:
 
 Automated tests will be written before or during the implementation of the functions. Each user story will have at least three test cases.
 
----
 
 ## 2. Selected User Stories
 
@@ -28,7 +27,6 @@ The following five user stories were selected for testing:
 - US6: Set Task Priority
 - US8: Search Task
 
----
 
 ## 3. Test Cases
 
