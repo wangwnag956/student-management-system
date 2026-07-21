@@ -101,22 +101,27 @@ test('should return all tasks when multiple tasks have been added', () => {
   ]);  
 });
 
-
-
 ## US5: Deadline Reminder — Mock Object Testing
 
 A mock notification service was used to test the deadline reminder feature without sending a real notification.
 
 ```js  
 const notificationService = {  
-  sendReminder: jest.fn()
-};
+  sendReminder: jest.fn()  
+};  
+```
+
+The tests verify that:
+
+- `sendReminder()` is called once when a task deadline is today.
+- `sendReminder()` is not called when a task deadline is in the future.
+
+This mock object allows the deadline reminder behaviour to be tested independently from a real notification system.
 
 ## Iteration 2 Reflection and Velocity
 
-Iteration 2 established the core task-management functions and their initial tests. 
+Iteration 2 established the core task-management functions and their initial tests.
+
 For Iteration 3, the plan was adjusted to use the existing UI design and user stories as testing specifications, with additional focus on TDD and mock object testing.
 
 Iteration 2 velocity: 4 completed user stories.
-};  
-
