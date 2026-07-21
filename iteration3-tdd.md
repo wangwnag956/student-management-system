@@ -110,6 +110,7 @@ A mock notification service was used to test the deadline reminder feature witho
 ```js  
 const notificationService = {  
   sendReminder: jest.fn()
+};
 
 ## Iteration 2 Reflection and Velocity
 
