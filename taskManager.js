@@ -69,6 +69,18 @@ function getTasks() {
   return tasks;
 }
 
+function checkDeadlineReminders(notificationService, today = new Date()) {
+  const todayDate = today.toISOString().split("T")[0];
+
+  tasks.forEach(task => {
+    if (task.deadline === todayDate) {
+      notificationService.sendReminder(
+        `Reminder: "${task.title}" is due today.`
+      );
+    }
+  });
+}
+
 module.exports = {
   resetTasks,
   addTask,
@@ -77,5 +89,6 @@ module.exports = {
   setDeadline,
   setPriority,
   searchTasks,
-  getTasks
+  getTasks,
+  checkDeadlineReminders,
 };
