@@ -109,6 +109,13 @@ A mock notification service was used to test the deadline reminder feature witho
 
 ```js  
 const notificationService = {  
-  sendReminder: jest.fn()  
+  sendReminder: jest.fn()
+
+## Iteration 2 Reflection and Velocity
+
+Iteration 2 established the core task-management functions and their initial tests. 
+For Iteration 3, the plan was adjusted to use the existing UI design and user stories as testing specifications, with additional focus on TDD and mock object testing.
+
+Iteration 2 velocity: 4 completed user stories.
 };  
 
