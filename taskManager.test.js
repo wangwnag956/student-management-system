@@ -1,13 +1,13 @@
 const {
-  resetTasks,
   addTask,
   editTask,
   deleteTask,
   setDeadline,
   setPriority,
   searchTasks,
-  getTasks
-} = require("./taskManager.js");
+  getTasks,
+  checkDeadlineReminders
+} = require("./taskManager");
 
 beforeEach(() => {
   resetTasks();
@@ -170,3 +170,39 @@ describe("View All Tasks", () => {
   });
 });
 
+describe("Deadline Reminder", () => {
+  test("should call sendReminder when a task is due today", () => {
+    const notificationService = {
+      sendReminder: jest.fn()
+    };
+
+    addTask("Submit Iteration 3");
+    setDeadline(1, "2026-07-21");
+
+    checkDeadlineReminders(
+      notificationService,
+      new Date("2026-07-21T12:00:00")
+    );
+
+    expect(notificationService.sendReminder).toHaveBeenCalledTimes(1);
+    expect(notificationService.sendReminder).toHaveBeenCalledWith(
+      'Reminder: "Submit Iteration 3" is due today.'
+    );
+  });
+
+  test("should not call sendReminder when a task is not due today", () => {
+    const notificationService = {
+      sendReminder: jest.fn()
+    };
+
+    addTask("Future task");
+    setDeadline(1, "2026-07-25");
+
+    checkDeadlineReminders(
+      notificationService,
+      new Date("2026-07-21T12:00:00")
+    );
+
+    expect(notificationService.sendReminder).not.toHaveBeenCalled();
+  });
+});
