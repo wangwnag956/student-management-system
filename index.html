@@ -1,77 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Task Management System</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Task Management System</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <div class="container">
+    <header>
+      <h1>Student Task Management System</h1>
+      <p class="description">
+        Manage your assignments, exams, deadlines and study tasks in one place.
+      </p>
+    </header>
 
-    <div class="container">
-        <header>
-            <h1>Student Task Management System</h1>
-            <p class="description">
-                Manage your assignments, exams, deadlines and study tasks in one place.
-            </p>
-        </header>
+    <section class="task-card">
+      <h2>Add New Task</h2>
 
-        <section class="task-card">
-            <h2>Add New Task</h2>
+      <div class="task-form">
+        <input type="text" id="taskInput" placeholder="Enter a new task">
 
-            <div class="task-form">
-                <input type="text" id="taskInput" placeholder="Enter a new task">
-                <button onclick="addTask()">Add Task</button>
-            </div>
+        <input type="date" id="deadlineInput" aria-label="Task deadline">
 
-            <p class="hint">Example: Finish programming assignment before Friday</p>
-        </section>
+        <select id="priorityInput" aria-label="Task priority">
+          <option value="Low">Low Priority</option>
+          <option value="Medium" selected>Medium Priority</option>
+          <option value="High">High Priority</option>
+        </select>
 
-        <section class="summary">
-            <div>
-                <h3 id="totalTasks">0</h3>
-                <p>Total Tasks</p>
-            </div>
+        <button type="button" onclick="addTask()">Add Task</button>
+      </div>
 
-            <div>
-                <h3 id="completedTasks">0</h3>
-                <p>Completed</p>
-            </div>
+      <p class="hint">Example: Finish programming assignment before Friday</p>
+    </section>
 
-            <div>
-                <h3 id="remainingTasks">0</h3>
-                <p>Remaining</p>
-            </div>
-        </section>
+    <section class="search-card">
+      <label for="searchInput">Search Tasks</label>
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search by task name..."
+        oninput="searchTasks()"
+      >
+    </section>
 
-        <section class="task-list-section">
-            <h2>Task List</h2>
-            <ul id="taskList"></ul>
-            <p id="emptyMessage">No tasks yet. Add your first task above.</p>
-        </section>
+    <section class="summary">
+      <div>
+        <h3 id="totalTasks">0</h3>
+        <p>Total Tasks</p>
+      </div>
 
-        <section class="completed-user-stories">
-            <h2>Iteration 1 Completed User Stories</h2>
+      <div>
+        <h3 id="completedTasks">0</h3>
+        <p>Completed</p>
+      </div>
 
-            <h3>US1: Add Task</h3>
-            <p>The user can add a new task to the task list.</p>
+      <div>
+        <h3 id="remainingTasks">0</h3>
+        <p>Remaining</p>
+      </div>
+    </section>
 
-            <h3>US9: Mark Task Completed</h3>
-            <p>The user can mark a task as completed.</p>
-        </section>
+    <section class="task-list-section">
+      <div class="section-title-row">
+        <h2>All Tasks</h2>
+        <span id="taskCount">0 tasks</span>
+      </div>
 
-        <section class="planned-user-stories">
-            <h2>Iteration 2 Planned User Stories</h2>
+      <ul id="taskList"></ul>
+      <p id="emptyMessage">No tasks yet. Add your first task above.</p>
+    </section>
 
-            <h3>US4: Set Deadline</h3>
-            <p>The user can set a deadline for a task.</p>
+    <section class="completed-user-stories">
+      <h2>Completed User Stories</h2>
 
-            <h3>US2: Edit Task</h3>
-            <p>The user can edit an existing task.</p>
-        </section>
-    </div>
+      <h3>Iteration 1</h3>
+      <p><strong>US1: Add Task</strong> — The user can add a new task to the task list.</p>
+      <p><strong>US9: Mark Task Completed</strong> — The user can mark a task as completed.</p>
 
-    <script src="script.js"></script>
-    
+      <h3>Iteration 2</h3>
+      <p><strong>US2: Edit Task</strong> — The user can edit an existing task.</p>
+      <p><strong>US3: Delete Task</strong> — The user can delete an existing task.</p>
+      <p><strong>US4: Set Deadline</strong> — The user can set a deadline for a task.</p>
+      <p><strong>US6: Set Task Priority</strong> — The user can assign a priority to a task.</p>
+
+      <h3>Iteration 3</h3>
+      <p><strong>US5: Deadline Reminder</strong> — Tasks due today show a reminder.</p>
+      <p><strong>US7: View All Tasks</strong> — The user can view all tasks.</p>
+      <p><strong>US8: Search Task</strong> — The user can search tasks by keyword.</p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
