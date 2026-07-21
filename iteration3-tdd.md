@@ -99,4 +99,13 @@ test('should return all tasks when multiple tasks have been added', () => {
     'Complete assignment',  
     'Read lecture notes'  
   ]);  
-});  
+});
+
+## US5: Deadline Reminder — Mock Object Testing
+
+A mock notification service was used to test the deadline reminder feature without sending a real notification.
+
+```js  
+const notificationService = {  
+  sendReminder: jest.fn()  
+};  
