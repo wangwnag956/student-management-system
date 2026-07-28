@@ -33,8 +33,10 @@ h1 {
     color: #666;
 }
 
+/* Add Task and All Tasks cards */
 .task-card,
-.task-list-section {
+.task-list-section,
+.completed-stories {
     background-color: white;
     padding: 25px;
     border-radius: 16px;
@@ -43,26 +45,32 @@ h1 {
 }
 
 .task-card h2,
-.task-list-section h2 {
+.task-list-section h2,
+.completed-stories h2 {
     margin-bottom: 15px;
     color: #1e3a5f;
 }
 
+/* Add task form */
 .task-form {
     display: flex;
     gap: 12px;
+    align-items: center;
 }
 
-.task-form input {
+.task-form input,
+.task-form select {
     flex: 1;
     padding: 14px;
     border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 15px;
     outline: none;
+    background-color: white;
 }
 
-.task-form input:focus {
+.task-form input:focus,
+.task-form select:focus {
     border-color: #2f80ed;
 }
 
@@ -75,6 +83,7 @@ h1 {
     font-size: 15px;
     cursor: pointer;
     transition: 0.3s;
+    white-space: nowrap;
 }
 
 .task-form button:hover {
@@ -87,6 +96,37 @@ h1 {
     color: #777;
 }
 
+/* Search section */
+.search-section {
+    background-color: white;
+    padding: 20px 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+.search-section label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1e3a5f;
+    margin-bottom: 10px;
+}
+
+.search-section input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+}
+
+.search-section input:focus {
+    border-color: #2f80ed;
+}
+
+/* Summary cards */
 .summary {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -112,6 +152,7 @@ h1 {
     margin-top: 5px;
 }
 
+/* Task list */
 #taskList {
     list-style: none;
 }
@@ -131,6 +172,12 @@ h1 {
     font-size: 15px;
 }
 
+.task-meta {
+    margin-top: 5px;
+    color: #666;
+    font-size: 14px;
+}
+
 .completed .task-text {
     text-decoration: line-through;
     color: #888;
@@ -139,19 +186,27 @@ h1 {
 .task-actions {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
 }
 
 .complete-btn,
+.edit-btn,
 .delete-btn {
     border: none;
     padding: 8px 12px;
     border-radius: 8px;
     cursor: pointer;
     color: white;
+    font-size: 14px;
 }
 
 .complete-btn {
     background-color: #27ae60;
+}
+
+.edit-btn {
+    background-color: #f2c94c;
+    color: #333;
 }
 
 .delete-btn {
@@ -160,6 +215,10 @@ h1 {
 
 .complete-btn:hover {
     background-color: #1e874b;
+}
+
+.edit-btn:hover {
+    background-color: #d7ac22;
 }
 
 .delete-btn:hover {
@@ -172,13 +231,38 @@ h1 {
     margin-top: 20px;
 }
 
+/* Completed User Stories */
+.completed-stories h3 {
+    color: #2f80ed;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-size: 18px;
+}
+
+.completed-stories p {
+    line-height: 1.6;
+    margin-bottom: 4px;
+}
+
+/* Mobile layout */
 @media (max-width: 600px) {
+    body {
+        padding: 25px 15px;
+    }
+
     h1 {
         font-size: 28px;
     }
 
     .task-form {
         flex-direction: column;
+        align-items: stretch;
+    }
+
+    .task-form input,
+    .task-form select,
+    .task-form button {
+        width: 100%;
     }
 
     .summary {
@@ -189,5 +273,9 @@ h1 {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+    }
+
+    .task-actions {
+        width: 100%;
     }
 }
