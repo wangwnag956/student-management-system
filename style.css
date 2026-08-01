@@ -352,4 +352,26 @@ h1 {
   text-align: center;
   margin-bottom: 0;
 }
+
+
+.user-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 20px;
+}
+
+#logoutButton {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #5b6470;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#logoutButton:hover {
+  background: #414854;
+}
 }
