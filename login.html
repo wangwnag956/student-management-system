@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Student Task Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+  <main class="auth-card">
+    <h1>Student Task Management System</h1>
+    <h2>Login</h2>
+
+    <form id="loginForm">
+      <label for="username">Username or Email</label>
+      <input
+        type="text"
+        id="username"
+        placeholder="Enter your username or email"
+        required
+      >
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+      >
+
+      <p id="loginMessage" class="form-message"></p>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p class="auth-link">
+      No account yet?
+      <a href="register.html">Register here</a>
+    </p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
