@@ -50,9 +50,15 @@ function displayTasks() {
 
   if (filteredTasks.length === 0) {
     emptyMessage.style.display = "block";
-    emptyMessage.textContent = tasks.length === 0
-      ? "No tasks yet. Add your first task above."
-      : "No tasks match your search.";
+    emptyMessage.innerHTML = `
+      <div class="empty-icon">✓</div>
+      <h3>${tasks.length === 0 ? "No tasks yet" : "No matching tasks"}</h3>
+      <p>${
+        tasks.length === 0
+          ? "Add your first task above to begin organising your workload."
+          : "Try searching for a different task name."
+      }</p>
+    `;
     return;
   }
 
@@ -74,15 +80,17 @@ function displayTasks() {
         <span class="task-text">${escapeHtml(task.text)}</span>
 
         <div class="task-meta">
-          <span class="deadline">Deadline: ${deadlineText}</span>
+          <span class="deadline">Due: ${deadlineText}</span>
           <span class="priority priority-${task.priority.toLowerCase()}">
-            ${task.priority} Priority
+            ${task.priority}
           </span>
         </div>
 
-        ${isDueToday(task.deadline)
-          ? '<p class="reminder">Due today — Reminder</p>'
-          : ""}
+        ${
+          isDueToday(task.deadline)
+            ? '<p class="reminder">Due today · Reminder</p>'
+            : ""
+        }
       </div>
 
       <div class="task-actions">
@@ -133,7 +141,7 @@ function editTask(index) {
   tasks[index].text = trimmedText;
 
   const newDeadline = prompt(
-    "Edit deadline (YYYY-MM-DD). Leave empty for no deadline:",
+    "Edit deadline (YYYY-MM-DD). Leave blank for no deadline:",
     tasks[index].deadline
   );
 
@@ -167,11 +175,11 @@ function deleteTask(index) {
 
   const confirmed = confirm(`Delete "${tasks[index].text}"?`);
 
-  if (confirmed) {
-    tasks.splice(index, 1);
-    displayTasks();
-    updateSummary();
-  }
+  if (!confirmed) return;
+
+  tasks.splice(index, 1);
+  displayTasks();
+  updateSummary();
 }
 
 function updateSummary() {
@@ -237,7 +245,7 @@ if (loginForm) {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("currentUser", username);
       window.location.href = "index.html";
-    } else {
+    } else if (loginMessage) {
       loginMessage.textContent = "Please enter a username and password.";
     }
   });
@@ -253,7 +261,7 @@ if (isTaskPage) {
     window.location.href = "login.html";
   } else if (welcomeUser) {
     welcomeUser.textContent =
-      `Welcome, ${localStorage.getItem("currentUser") || "Student"}!`;
+      localStorage.getItem("currentUser") || "Student";
   }
 
   displayTasks();
