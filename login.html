@@ -6,37 +6,61 @@
   <title>Login | Student Task Management System</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="auth-page">
-  <main class="auth-card">
-    <h1>Student Task Management System</h1>
-    <h2>Login</h2>
+  <main class="auth-layout">
+    <section class="auth-intro">
+      <span class="brand-icon">✓</span>
+      <p class="eyebrow">STUDENT PRODUCTIVITY</p>
+      <h1>Stay organised.<br>Achieve more.</h1>
+      <p>
+        Plan assignments, track deadlines and manage your study tasks
+        from one simple dashboard.
+      </p>
 
-    <form id="loginForm">
-      <label for="username">Username or Email</label>
-      <input
-        type="text"
-        id="username"
-        placeholder="Enter your username or email"
-        required
-      >
+      <div class="feature-list">
+        <p>✓ Manage all your study tasks</p>
+        <p>✓ Track deadlines and priorities</p>
+        <p>✓ Monitor your progress</p>
+      </div>
+    </section>
 
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-        required
-      >
+    <section class="auth-card">
+      <div class="auth-card-heading">
+        <p class="eyebrow">WELCOME BACK</p>
+        <h2>Log in to your account</h2>
+        <p>Enter your details to continue to your dashboard.</p>
+      </div>
 
-      <p id="loginMessage" class="form-message"></p>
+      <form id="loginForm">
+        <label for="username">Username or Email</label>
+        <input
+          type="text"
+          id="username"
+          placeholder="Enter your username or email"
+          autocomplete="username"
+          required
+        >
 
-      <button type="submit">Login</button>
-    </form>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        >
 
-    <p class="auth-link">
-      No account yet?
-      <a href="register.html">Register here</a>
-    </p>
+        <p id="loginMessage" class="form-message" aria-live="polite"></p>
+
+        <button type="submit" class="primary-button">Login</button>
+      </form>
+
+      <p class="auth-link">
+        No account yet?
+        <a href="register.html">Create an account</a>
+      </p>
+    </section>
   </main>
 
   <script src="script.js"></script>
