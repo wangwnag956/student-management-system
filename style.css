@@ -278,4 +278,78 @@ h1 {
     .task-actions {
         width: 100%;
     }
+
+
+
+
+    .auth-page {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eaf5ff;
+  font-family: Arial, sans-serif;
+}
+
+.auth-card {
+  width: min(90%, 420px);
+  padding: 32px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.auth-card h1 {
+  margin-top: 0;
+  color: #173a69;
+  font-size: 24px;
+  text-align: center;
+}
+
+.auth-card h2 {
+  color: #173a69;
+}
+
+.auth-card label {
+  display: block;
+  margin: 16px 0 6px;
+  font-weight: bold;
+}
+
+.auth-card input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #c9d5e3;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.auth-card button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #2878d4;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.auth-card button:hover {
+  background: #1d62b1;
+}
+
+.form-message {
+  min-height: 20px;
+  color: #c62828;
+  margin: 12px 0 0;
+}
+
+.auth-link {
+  text-align: center;
+  margin-bottom: 0;
+}
 }
