@@ -209,3 +209,24 @@ function escapeHtml(text) {
 
 displayTasks();
 updateSummary();
+
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+    const loginMessage = document.getElementById("loginMessage");
+
+    if (username !== "" && password !== "") {
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("currentUser", username);
+
+      window.location.href = "index.html";
+    } else {
+      loginMessage.textContent = "Please enter a username and password.";
+    }
+  });
+}
