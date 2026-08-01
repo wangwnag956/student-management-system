@@ -230,3 +230,22 @@ if (loginForm) {
     }
   });
 }
+
+const logoutButton = document.getElementById("logoutButton");
+const welcomeUser = document.getElementById("welcomeUser");
+
+if (window.location.pathname.endsWith("index.html") || window.location.pathname.endsWith("/")) {
+  if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "login.html";
+  } else if (welcomeUser) {
+    welcomeUser.textContent = `Welcome, ${localStorage.getItem("currentUser")}!`;
+  }
+}
+
+if (logoutButton) {
+  logoutButton.addEventListener("click", function () {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("currentUser");
+    window.location.href = "login.html";
+  });
+}
