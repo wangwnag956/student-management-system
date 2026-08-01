@@ -1,215 +1,228 @@
 let tasks = [];
 
 function addTask() {
-    const taskInput = document.getElementById("taskInput");
-    const deadlineInput = document.getElementById("deadlineInput");
-    const priorityInput = document.getElementById("priorityInput");
+  const taskInput = document.getElementById("taskInput");
+  const deadlineInput = document.getElementById("deadlineInput");
+  const priorityInput = document.getElementById("priorityInput");
 
-    const taskText = taskInput.value.trim();
+  if (!taskInput || !deadlineInput || !priorityInput) return;
 
-    if (taskText === "") {
-        alert("Please enter a task.");
-        return;
-    }
+  const taskText = taskInput.value.trim();
 
-    const task = {
-        text: taskText,
-        deadline: deadlineInput.value,
-        priority: priorityInput.value,
-        completed: false
-    };
+  if (taskText === "") {
+    alert("Please enter a task.");
+    taskInput.focus();
+    return;
+  }
 
-    tasks.push(task);
+  tasks.push({
+    text: taskText,
+    deadline: deadlineInput.value,
+    priority: priorityInput.value,
+    completed: false
+  });
 
-    taskInput.value = "";
-    deadlineInput.value = "";
-    priorityInput.value = "Medium";
+  taskInput.value = "";
+  deadlineInput.value = "";
+  priorityInput.value = "Medium";
 
-    displayTasks();
-    updateSummary();
+  displayTasks();
+  updateSummary();
 }
 
 function displayTasks() {
-    const taskList = document.getElementById("taskList");
-    const emptyMessage = document.getElementById("emptyMessage");
-    const searchInput = document.getElementById("searchInput");
-    const taskCount = document.getElementById("taskCount");
+  const taskList = document.getElementById("taskList");
+  const emptyMessage = document.getElementById("emptyMessage");
+  const searchInput = document.getElementById("searchInput");
+  const taskCount = document.getElementById("taskCount");
 
-    const searchText = searchInput.value.trim().toLowerCase();
-    const filteredTasks = tasks.filter(function (task) {
-        return task.text.toLowerCase().includes(searchText);
-    });
+  if (!taskList || !emptyMessage || !searchInput || !taskCount) return;
 
-    taskList.innerHTML = "";
-    taskCount.textContent = `${filteredTasks.length} task${filteredTasks.length === 1 ? "" : "s"}`;
+  const searchText = searchInput.value.trim().toLowerCase();
 
-    if (filteredTasks.length === 0) {
-        emptyMessage.style.display = "block";
-        emptyMessage.textContent = tasks.length === 0
-            ? "No tasks yet. Add your first task above."
-            : "No tasks match your search.";
-    } else {
-        emptyMessage.style.display = "none";
-    }
+  const filteredTasks = tasks.filter(function (task) {
+    return task.text.toLowerCase().includes(searchText);
+  });
 
-    filteredTasks.forEach(function (task) {
-        const originalIndex = tasks.indexOf(task);
-        const li = document.createElement("li");
+  taskList.innerHTML = "";
+  taskCount.textContent =
+    `${filteredTasks.length} task${filteredTasks.length === 1 ? "" : "s"}`;
 
-        li.className = task.completed ? "task-item completed" : "task-item";
+  if (filteredTasks.length === 0) {
+    emptyMessage.style.display = "block";
+    emptyMessage.textContent = tasks.length === 0
+      ? "No tasks yet. Add your first task above."
+      : "No tasks match your search.";
+    return;
+  }
 
-        const reminder = isDueToday(task.deadline)
-            ? `<p class="reminder">Due today — Reminder</p>`
-            : "";
+  emptyMessage.style.display = "none";
 
-        const deadlineText = task.deadline
-            ? formatDeadline(task.deadline)
-            : "No deadline";
+  filteredTasks.forEach(function (task) {
+    const originalIndex = tasks.indexOf(task);
+    const li = document.createElement("li");
+    const deadlineText = task.deadline
+      ? formatDeadline(task.deadline)
+      : "No deadline";
 
-        li.innerHTML = `
-            <div class="task-details">
-                <span class="task-text">${escapeHtml(task.text)}</span>
-                <div class="task-meta">
-                    <span class="deadline">Deadline: ${deadlineText}</span>
-                    <span class="priority priority-${task.priority.toLowerCase()}">
-                        ${task.priority} Priority
-                    </span>
-                </div>
-                ${reminder}
-            </div>
+    li.className = task.completed
+      ? "task-item completed"
+      : "task-item";
 
-            <div class="task-actions">
-                <button class="complete-btn" onclick="completeTask(${originalIndex})">
-                    ${task.completed ? "Undo" : "Done"}
-                </button>
+    li.innerHTML = `
+      <div class="task-details">
+        <span class="task-text">${escapeHtml(task.text)}</span>
 
-                <button class="edit-btn" onclick="editTask(${originalIndex})">
-                    Edit
-                </button>
+        <div class="task-meta">
+          <span class="deadline">Deadline: ${deadlineText}</span>
+          <span class="priority priority-${task.priority.toLowerCase()}">
+            ${task.priority} Priority
+          </span>
+        </div>
 
-                <button class="delete-btn" onclick="deleteTask(${originalIndex})">
-                    Delete
-                </button>
-            </div>
-        `;
+        ${isDueToday(task.deadline)
+          ? '<p class="reminder">Due today — Reminder</p>'
+          : ""}
+      </div>
 
-        taskList.appendChild(li);
-    });
+      <div class="task-actions">
+        <button class="complete-btn" type="button" onclick="completeTask(${originalIndex})">
+          ${task.completed ? "Undo" : "Done"}
+        </button>
+
+        <button class="edit-btn" type="button" onclick="editTask(${originalIndex})">
+          Edit
+        </button>
+
+        <button class="delete-btn" type="button" onclick="deleteTask(${originalIndex})">
+          Delete
+        </button>
+      </div>
+    `;
+
+    taskList.appendChild(li);
+  });
 }
 
 function searchTasks() {
-    displayTasks();
+  displayTasks();
 }
 
 function completeTask(index) {
-    tasks[index].completed = !tasks[index].completed;
-    displayTasks();
-    updateSummary();
+  if (!tasks[index]) return;
+
+  tasks[index].completed = !tasks[index].completed;
+  displayTasks();
+  updateSummary();
 }
 
 function editTask(index) {
-    const newTaskText = prompt("Edit task:", tasks[index].text);
+  if (!tasks[index]) return;
 
-    if (newTaskText === null) {
-        return;
+  const newTaskText = prompt("Edit task:", tasks[index].text);
+
+  if (newTaskText === null) return;
+
+  const trimmedText = newTaskText.trim();
+
+  if (trimmedText === "") {
+    alert("Task name cannot be empty.");
+    return;
+  }
+
+  tasks[index].text = trimmedText;
+
+  const newDeadline = prompt(
+    "Edit deadline (YYYY-MM-DD). Leave empty for no deadline:",
+    tasks[index].deadline
+  );
+
+  if (newDeadline !== null) {
+    tasks[index].deadline = newDeadline.trim();
+  }
+
+  const newPriority = prompt(
+    "Edit priority: Low, Medium, or High",
+    tasks[index].priority
+  );
+
+  if (newPriority !== null) {
+    const formattedPriority =
+      newPriority.charAt(0).toUpperCase() +
+      newPriority.slice(1).toLowerCase();
+
+    if (["Low", "Medium", "High"].includes(formattedPriority)) {
+      tasks[index].priority = formattedPriority;
+    } else {
+      alert("Priority was not changed. Please use Low, Medium, or High.");
     }
+  }
 
-    const trimmedText = newTaskText.trim();
-
-    if (trimmedText === "") {
-        alert("Task name cannot be empty.");
-        return;
-    }
-
-    tasks[index].text = trimmedText;
-
-    const newDeadline = prompt(
-        "Edit deadline (YYYY-MM-DD). Leave empty for no deadline:",
-        tasks[index].deadline
-    );
-
-    if (newDeadline !== null) {
-        tasks[index].deadline = newDeadline.trim();
-    }
-
-    const newPriority = prompt(
-        "Edit priority: Low, Medium, or High",
-        tasks[index].priority
-    );
-
-    if (newPriority !== null) {
-        const formattedPriority =
-            newPriority.charAt(0).toUpperCase() +
-            newPriority.slice(1).toLowerCase();
-
-        if (["Low", "Medium", "High"].includes(formattedPriority)) {
-            tasks[index].priority = formattedPriority;
-        } else {
-            alert("Priority was not changed. Please use Low, Medium, or High.");
-        }
-    }
-
-    displayTasks();
-    updateSummary();
+  displayTasks();
+  updateSummary();
 }
 
 function deleteTask(index) {
-    const confirmed = confirm(`Delete "${tasks[index].text}"?`);
+  if (!tasks[index]) return;
 
-    if (confirmed) {
-        tasks.splice(index, 1);
-        displayTasks();
-        updateSummary();
-    }
+  const confirmed = confirm(`Delete "${tasks[index].text}"?`);
+
+  if (confirmed) {
+    tasks.splice(index, 1);
+    displayTasks();
+    updateSummary();
+  }
 }
 
 function updateSummary() {
-    const totalTasks = tasks.length;
-    const completedTasks = tasks.filter(function (task) {
-        return task.completed;
-    }).length;
+  const totalTasksElement = document.getElementById("totalTasks");
+  const completedTasksElement = document.getElementById("completedTasks");
+  const remainingTasksElement = document.getElementById("remainingTasks");
 
-    const remainingTasks = totalTasks - completedTasks;
+  if (!totalTasksElement || !completedTasksElement || !remainingTasksElement) {
+    return;
+  }
 
-    document.getElementById("totalTasks").textContent = totalTasks;
-    document.getElementById("completedTasks").textContent = completedTasks;
-    document.getElementById("remainingTasks").textContent = remainingTasks;
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(function (task) {
+    return task.completed;
+  }).length;
+
+  totalTasksElement.textContent = totalTasks;
+  completedTasksElement.textContent = completedTasks;
+  remainingTasksElement.textContent = totalTasks - completedTasks;
 }
 
 function isDueToday(deadline) {
-    if (!deadline) {
-        return false;
-    }
+  if (!deadline) return false;
 
-    const today = new Date();
-    const localToday = [
-        today.getFullYear(),
-        String(today.getMonth() + 1).padStart(2, "0"),
-        String(today.getDate()).padStart(2, "0")
-    ].join("-");
+  const today = new Date();
+  const localToday = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, "0"),
+    String(today.getDate()).padStart(2, "0")
+  ].join("-");
 
-    return deadline === localToday;
+  return deadline === localToday;
 }
 
 function formatDeadline(deadline) {
-    const date = new Date(`${deadline}T00:00:00`);
+  const date = new Date(`${deadline}T00:00:00`);
 
-    return date.toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
-    });
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
 }
 
 function escapeHtml(text) {
-    const temporaryElement = document.createElement("div");
-    temporaryElement.textContent = text;
-    return temporaryElement.innerHTML;
+  const temporaryElement = document.createElement("div");
+  temporaryElement.textContent = text;
+  return temporaryElement.innerHTML;
 }
 
-displayTasks();
-updateSummary();
-
+/* Login page */
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
@@ -223,7 +236,6 @@ if (loginForm) {
     if (username !== "" && password !== "") {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("currentUser", username);
-
       window.location.href = "index.html";
     } else {
       loginMessage.textContent = "Please enter a username and password.";
@@ -231,15 +243,21 @@ if (loginForm) {
   });
 }
 
+/* Dashboard authentication and logout */
 const logoutButton = document.getElementById("logoutButton");
 const welcomeUser = document.getElementById("welcomeUser");
+const isTaskPage = document.getElementById("taskList") !== null;
 
-if (window.location.pathname.endsWith("index.html") || window.location.pathname.endsWith("/")) {
+if (isTaskPage) {
   if (localStorage.getItem("isLoggedIn") !== "true") {
     window.location.href = "login.html";
   } else if (welcomeUser) {
-    welcomeUser.textContent = `Welcome, ${localStorage.getItem("currentUser")}!`;
+    welcomeUser.textContent =
+      `Welcome, ${localStorage.getItem("currentUser") || "Student"}!`;
   }
+
+  displayTasks();
+  updateSummary();
 }
 
 if (logoutButton) {
