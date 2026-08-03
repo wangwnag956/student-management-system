@@ -140,6 +140,7 @@ function completeTask(index) {
   if (!tasks[index]) return;
 
   tasks[index].completed = !tasks[index].completed;
+
   saveTasks();
   displayTasks();
   updateSummary();
@@ -200,6 +201,7 @@ function deleteTask(index) {
   if (!confirmed) return;
 
   tasks.splice(index, 1);
+
   saveTasks();
   displayTasks();
   updateSummary();
@@ -228,6 +230,7 @@ function isDueToday(deadline) {
   if (!deadline) return false;
 
   const today = new Date();
+
   const localToday = [
     today.getFullYear(),
     String(today.getMonth() + 1).padStart(2, "0"),
@@ -326,11 +329,12 @@ if (loginForm) {
 
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("currentUser", user.username);
+
     window.location.href = "index.html";
   });
 }
 
-/* Dashboard authentication and logout */
+/* Dashboard authentication */
 const logoutButton = document.getElementById("logoutButton");
 const welcomeUser = document.getElementById("welcomeUser");
 const isTaskPage = document.getElementById("taskList") !== null;
@@ -347,10 +351,82 @@ if (isTaskPage) {
   updateSummary();
 }
 
+/* Logout */
 if (logoutButton) {
   logoutButton.addEventListener("click", function () {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("currentUser");
+
     window.location.href = "login.html";
+  });
+}
+
+/* Settings: change display name */
+const settingsButton = document.getElementById("settingsButton");
+const settingsModal = document.getElementById("settingsModal");
+const closeSettingsButton = document.getElementById("closeSettingsButton");
+const saveSettingsButton = document.getElementById("saveSettingsButton");
+const displayNameInput = document.getElementById("displayNameInput");
+const settingsMessage = document.getElementById("settingsMessage");
+
+if (settingsButton) {
+  settingsButton.addEventListener("click", function () {
+    if (displayNameInput) {
+      displayNameInput.value = localStorage.getItem("currentUser") || "";
+    }
+
+    if (settingsMessage) {
+      settingsMessage.textContent = "";
+      settingsMessage.style.color = "";
+    }
+
+    if (settingsModal) {
+      settingsModal.style.display = "flex";
+    }
+  });
+}
+
+if (closeSettingsButton) {
+  closeSettingsButton.addEventListener("click", function () {
+    if (settingsModal) {
+      settingsModal.style.display = "none";
+    }
+  });
+}
+
+if (saveSettingsButton) {
+  saveSettingsButton.addEventListener("click", function () {
+    if (!displayNameInput || !settingsMessage) return;
+
+    const newName = displayNameInput.value.trim();
+
+    if (newName === "") {
+      settingsMessage.style.color = "#c0392b";
+      settingsMessage.textContent = "Please enter a name.";
+      return;
+    }
+
+    localStorage.setItem("currentUser", newName);
+
+    if (welcomeUser) {
+      welcomeUser.textContent = newName;
+    }
+
+    settingsMessage.style.color = "#1c7c54";
+    settingsMessage.textContent = "Name updated successfully.";
+
+    setTimeout(function () {
+      if (settingsModal) {
+        settingsModal.style.display = "none";
+      }
+    }, 800);
+  });
+}
+
+if (settingsModal) {
+  settingsModal.addEventListener("click", function (event) {
+    if (event.target === settingsModal) {
+      settingsModal.style.display = "none";
+    }
   });
 }
