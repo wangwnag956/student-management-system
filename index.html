@@ -21,7 +21,9 @@
       </nav>
 
       <div class="sidebar-bottom">
-        <button class="settings-button" id="settingsButton">⚙ Settings</button>
+        <button class="settings-button" id="settingsButton" type="button">
+          ⚙ Settings
+        </button>
         <a class="logout-link" href="login.html" id="logoutButton">Log out</a>
       </div>
     </aside>
@@ -30,44 +32,52 @@
       <header class="topbar">
         <div>
           <p class="eyebrow">STUDENT TASK MANAGEMENT</p>
-          <h1>Hello, <span id="displayName">Student</span>!</h1>
-          <p class="description">Organise your work and stay on top of every deadline.</p>
+          <h1>Hello, <span id="userName">Student</span>!</h1>
+          <p class="description">
+            Organise your work and stay on top of every deadline.
+          </p>
         </div>
-        <button class="profile-button" id="profileButton">S</button>
+
+        <button class="profile-button" type="button">
+          <span class="profile-initial" id="profileInitial">S</span>
+        </button>
       </header>
 
       <section class="overview">
         <article class="stat-card stat-card-primary">
-          <p>Total Tasks</p>
-          <h2 id="totalTasks">0</h2>
+          <p class="stat-label">Total Tasks</p>
+          <h2 class="stat-number" id="totalTasks">0</h2>
         </article>
+
         <article class="stat-card">
-          <p>Completed</p>
-          <h2 id="completedTasks">0</h2>
+          <p class="stat-label">Completed</p>
+          <h2 class="stat-number" id="completedTasks">0</h2>
         </article>
+
         <article class="stat-card">
-          <p>Remaining</p>
-          <h2 id="remainingTasks">0</h2>
+          <p class="stat-label">Remaining</p>
+          <h2 class="stat-number" id="remainingTasks">0</h2>
         </article>
       </section>
 
       <section class="task-card">
-        <div class="card-heading">
-          <div>
-            <p class="eyebrow">QUICK ADD</p>
-            <h2>Create a task</h2>
-          </div>
-        </div>
+        <p class="eyebrow">QUICK ADD</p>
+        <h2 class="card-heading">Create a task</h2>
 
         <form class="task-form" id="taskForm">
-          <div class="field-group task-name-field">
-            <label for="taskName">Task name</label>
-            <input id="taskName" type="text" placeholder="e.g. Finish database assignment" required />
+          <div class="field-group">
+            <label for="taskInput">Task name</label>
+            <input
+              id="taskInput"
+              type="text"
+              placeholder="e.g. Finish database assignment"
+              required
+            />
           </div>
 
           <div class="field-group">
             <label for="taskDate">Deadline</label>
-            <input id="taskDate" type="date" required />
+            <input id="taskDate" type="date" />
           </div>
 
           <div class="field-group">
@@ -87,67 +97,45 @@
         <div class="section-title-row">
           <div>
             <p class="eyebrow">TASK LIST</p>
-            <h2>My Tasks</h2>
+            <h2 class="card-heading">My Tasks</h2>
           </div>
 
           <div class="toolbar">
             <label class="search-wrap" for="searchInput">
-              <span>⌕</span>
               <input id="searchInput" type="search" placeholder="Search tasks" />
             </label>
             <span class="task-count" id="taskCount">0 tasks</span>
           </div>
         </div>
 
-        <div id="taskList"></div>
-
-        <div class="empty-state" id="emptyState">
-          <h3>No tasks yet</h3>
-          <p>Create your first task above to get started.</p>
-        </div>
+        <div class="task-list" id="taskList"></div>
       </section>
     </main>
   </div>
 
-  <div class="modal-backdrop" id="settingsModal">
-    <div class="settings-modal">
-      <button class="close-modal" id="closeSettings" aria-label="Close settings">×</button>
-      <p class="eyebrow">ACCOUNT SETTINGS</p>
-      <h2>Update your profile</h2>
+  <div class="modal-backdrop" id="modalBackdrop">
+    <section class="settings-modal">
+      <button class="close-modal" id="closeModal" type="button">&times;</button>
 
-      <form id="settingsForm">
-        <label for="nameInput">Display name</label>
-        <input id="nameInput" type="text" maxlength="30" required />
+      <h2>Settings</h2>
+      <p>Update your display name.</p>
+
+      <form id="settingsForm" class="settings-form">
+        <div class="field-group">
+          <label for="displayNameInput">Display name</label>
+          <input
+            id="displayNameInput"
+            type="text"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+
         <button class="save-settings" type="submit">Save changes</button>
       </form>
-    </div>
+    </section>
   </div>
 
-  <div class="modal-backdrop" id="settingsModal">
-  <section class="settings-modal">
-    <button class="close-modal" id="closeSettingsButton" type="button">&times;</button>
-
-    <h2>Settings</h2>
-    <p>Update your display name.</p>
-
-    <form id="settingsForm" class="settings-form">
-      <div class="field-group">
-        <label for="displayNameInput">Display name</label>
-        <input
-          id="displayNameInput"
-          type="text"
-          placeholder="Enter your name"
-          required
-        />
-      </div>
-
-      <p id="settingsMessage" class="form-message"></p>
-
-      <button class="save-settings" type="submit">Save changes</button>
-    </form>
-  </section>
-</div>
-  
   <script src="script.js"></script>
 </body>
 </html>
