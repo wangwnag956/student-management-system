@@ -3,114 +3,154 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Task Management System</title>
+  <title>Dashboard | TaskFlow</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="app-shell">
-    <aside class="sidebar" aria-label="Main navigation">
-      <a class="brand" href="index.html" aria-label="TaskFlow home">
-        <span class="brand-mark">✓</span>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="logo">
+        <span class="logo-icon">✓</span>
         <span>TaskFlow</span>
-      </a>
+      </div>
 
       <nav class="nav-menu">
-        <a class="nav-link active" href="index.html" aria-current="page">Dashboard</a>
-        <a class="nav-link" href="#all-tasks">My Tasks</a>
-        <a class="nav-link" href="#completed-tasks">Completed</a>
-        <a class="nav-link" href="#upcoming">Upcoming</a>
+        <a href="index.html" class="nav-link active">Dashboard</a>
+        <a href="#allTasks" class="nav-link">My Tasks</a>
+        <a href="#allTasks" class="nav-link">Completed</a>
+        <a href="#allTasks" class="nav-link">Upcoming</a>
       </nav>
 
       <div class="sidebar-bottom">
-        <a class="nav-link" href="#settings">Settings</a>
-        <button id="logoutButton" class="logout-link" type="button">Log out</button>
+        <button id="settingsButton" class="settings-button" type="button">
+          Settings
+        </button>
+
+        <button id="logoutButton" class="logout-button" type="button">
+          Log out
+        </button>
       </div>
     </aside>
 
     <main class="main-content">
-      <header class="topbar">
+      <header class="dashboard-header">
         <div>
-          <p class="eyebrow">STUDENT DASHBOARD</p>
+          <p class="section-label">STUDENT DASHBOARD</p>
           <h1>Welcome back, <span id="welcomeUser">Student</span></h1>
-          <p class="description">Stay organised and keep your study goals on track.</p>
+          <p class="header-subtitle">
+            Stay organised and keep your study goals on track.
+          </p>
         </div>
-        <button class="profile-button" type="button" aria-label="Open profile">ST</button>
+
+        <div class="profile-circle">ST</div>
       </header>
 
-      <section class="overview" aria-label="Task overview">
-        <article class="stat-card stat-card-primary">
+      <section class="summary-cards">
+        <article class="summary-card total-card">
           <p>Total tasks</p>
           <h2 id="totalTasks">0</h2>
           <span>Everything you have planned</span>
         </article>
-        <article class="stat-card">
+
+        <article class="summary-card">
           <p>Completed</p>
           <h2 id="completedTasks">0</h2>
           <span>Tasks you have finished</span>
         </article>
-        <article class="stat-card">
+
+        <article class="summary-card">
           <p>Remaining</p>
           <h2 id="remainingTasks">0</h2>
           <span>Tasks still in progress</span>
         </article>
       </section>
 
-      <section class="task-card" aria-labelledby="addTaskHeading">
-        <div class="card-heading">
-          <div>
-            <p class="eyebrow">QUICK ADD</p>
-            <h2 id="addTaskHeading">Create a new task</h2>
-          </div>
-        </div>
+      <section class="task-form-card">
+        <p class="section-label">QUICK ADD</p>
+        <h2>Create a new task</h2>
 
         <div class="task-form">
-          <div class="field-group task-name-field">
+          <div class="form-field task-name-field">
             <label for="taskInput">Task name</label>
-            <input type="text" id="taskInput" placeholder="e.g. Finish programming assignment">
+            <input
+              type="text"
+              id="taskInput"
+              placeholder="e.g. Finish programming assignment"
+            >
           </div>
 
-          <div class="field-group">
+          <div class="form-field">
             <label for="deadlineInput">Due date</label>
-            <input type="date" id="deadlineInput" aria-label="Task deadline">
+            <input type="date" id="deadlineInput">
           </div>
 
-          <div class="field-group">
+          <div class="form-field">
             <label for="priorityInput">Priority</label>
-            <select id="priorityInput" aria-label="Task priority">
+            <select id="priorityInput">
               <option value="Low">Low</option>
               <option value="Medium" selected>Medium</option>
               <option value="High">High</option>
             </select>
           </div>
 
-          <button class="add-button" type="button" onclick="addTask()">Add task</button>
+          <button class="add-task-button" type="button" onclick="addTask()">
+            Add task
+          </button>
         </div>
       </section>
 
-      <section class="toolbar" aria-label="Task filters">
-        <div class="search-wrap">
-          <label for="searchInput">Search tasks</label>
-          <input type="search" id="searchInput" placeholder="Search by task name..." oninput="searchTasks()">
+      <section class="search-section">
+        <label for="searchInput">Search tasks</label>
+
+        <div class="search-row">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by task name..."
+            oninput="searchTasks()"
+          >
+          <span id="taskCount">0 tasks</span>
         </div>
-        <p id="taskCount" class="task-count">0 tasks</p>
       </section>
 
-      <section class="task-list-section" id="all-tasks" aria-labelledby="allTasksHeading">
-        <div class="section-title-row">
-          <div>
-            <p class="eyebrow">YOUR PLAN</p>
-            <h2 id="allTasksHeading">All tasks</h2>
-          </div>
-        </div>
+      <section class="task-list-card" id="allTasks">
+        <p class="section-label">YOUR PLAN</p>
+        <h2>All tasks</h2>
 
-        <ul id="taskList"></ul>
-        <div id="emptyMessage" class="empty-state">
+        <ul id="taskList" class="task-list"></ul>
+
+        <div id="emptyMessage" class="empty-message">
           <div class="empty-icon">✓</div>
           <h3>No tasks yet</h3>
           <p>Add your first task above to begin organising your workload.</p>
         </div>
       </section>
     </main>
+  </div>
+
+  <div id="settingsModal" class="settings-modal">
+    <div class="settings-content">
+      <button id="closeSettingsButton" class="close-settings" type="button">
+        ×
+      </button>
+
+      <h2>Settings</h2>
+      <p>Update your display name.</p>
+
+      <label for="displayNameInput">Display name</label>
+      <input
+        type="text"
+        id="displayNameInput"
+        placeholder="Enter your name"
+      >
+
+      <p id="settingsMessage" class="form-message"></p>
+
+      <button id="saveSettingsButton" type="button">
+        Save changes
+      </button>
+    </div>
   </div>
 
   <script src="script.js"></script>
