@@ -3,53 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TaskFlow | Login</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Log in | TaskFlow</title>
+  <link rel="stylesheet" href="../style.css" />
 </head>
-
 <body class="auth-page">
-  <main class="auth-container">
-    <section class="auth-card">
-      <div class="auth-brand">
-        <div class="brand-mark">✓</div>
-        <span>TaskFlow</span>
-      </div>
+  <main class="login-container">
+    <section class="login-card">
+      <div class="login-logo">✓</div>
 
-      <p class="eyebrow">WELCOME BACK</p>
-      <h1>Log in to your account</h1>
-      <p class="auth-description">
-        Manage your tasks and keep every deadline organised.
-      </p>
+      <h1>TaskFlow</h1>
+      <p class="login-subtitle">Student Task Manager</p>
 
-      <form id="loginForm" class="auth-form">
-        <label for="loginEmail">Email</label>
-        <input
-          id="loginEmail"
-          type="email"
-          placeholder="student@email.com"
-          required
-        />
+      <form id="loginForm" class="login-form">
+        <div class="login-field">
+          <label for="loginEmail">Email or Username</label>
+          <input
+            id="loginEmail"
+            type="text"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
 
-        <label for="loginPassword">Password</label>
-        <input
-          id="loginPassword"
-          type="password"
-          placeholder="Enter your password"
-          required
-        />
+        <div class="login-field">
+          <label for="loginPassword">Password</label>
+          <input
+            id="loginPassword"
+            type="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
 
-        <p class="form-message" id="loginMessage"></p>
+        <p id="loginMessage" class="form-message"></p>
 
-        <button class="auth-button" type="submit">Log in</button>
+        <button class="login-button" type="submit">Log in</button>
       </form>
 
-      <p class="auth-footer">
-        Do not have an account?
-        <a href="register.html">Create one</a>
+      <p class="login-footer">
+        New here? <a href="register.html">Create account</a>
       </p>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script src="../script.js"></script>
 </body>
 </html>
