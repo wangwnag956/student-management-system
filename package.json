@@ -1,0 +1,12 @@
+{
+  "name": "student-management-system-1",
+  "version": "1.0.0",
+  "description": "Student Task Management System",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0"
+  }
+}
