@@ -16,76 +16,78 @@ Users can also register an account, log in, update their display name, and view 
 
 ## Features
 
-- User registration
-- User login and logout
-- Create a new task
-- Set task deadline
-- Set task priority: Low, Medium, High
-- Edit a task
-- Delete a task
-- Mark task as completed or undo completion
-- Search tasks by task name
-- View total, completed, and remaining task numbers
-- Deadline reminder
-- Update display name in Settings
-- Responsive design for desktop and mobile devices
+User registration
+User login and logout
+Create a new task
+Set task deadline
+Set task priority: Low, Medium, High
+Edit a task
+Delete a task
+Mark task as completed or undo completion
+Search tasks by task name
+View total, completed, and remaining task numbers
+Deadline reminder
+Update display name in Settings
+Responsive design for desktop and mobile devices
 
 ## User Stories
 
-- US1 – Create Task
-- US2 – Edit Task
-- US3 – Delete Task
-- US4 – Set Deadline
-- US5 – Deadline Reminder
-- US6 – Set Task Priority
-- US7 – View All Tasks
-- US8 – Search Task
-- US9 – User Login
-- US10 – View Task Summary
-- US11 – Mark Task as Completed
-- US12 – View Upcoming Tasks
-- US13 – Logout
-- US14 – User Registration
-- US15 – Update Settings
+US1 – Create Task
+US2 – Edit Task
+US3 – Delete Task
+US4 – Set Deadline
+US5 – Deadline Reminder
+US6 – Set Task Priority
+US7 – View All Tasks
+US8 – Search Task
+US9 – User Login
+US10 – View Task Summary
+US11 – Mark Task as Completed
+US12 – View Upcoming Tasks
+US13 – Logout
+US14 – User Registration
+US15 – Update Settings
 
 ## Task Distribution
 
 ### Wang Zhiyuan
 
-- Design and build the Dashboard interface.
-- Create the sidebar navigation and summary cards.
-- Create the task form and task list layout.
-- Write and improve `style.css`.
-- Make the website responsive for mobile devices.
-- Work on User Stories: US1, US6, US7, US10, US12.
+Design and build the Dashboard interface.  
+Create the sidebar navigation and summary cards.  
+Create the task form and task list layout.  
+Write and improve `style.css`.  
+Make the website responsive for mobile devices.  
+Implement add task, edit task, delete task, and complete task functions.  
+Implement task search and task statistics.  
+Work on User Stories: US1, US2, US3, US6, US7, US8, US10, US11, US12.
 
 ### Wu Jiawei
 
-- Develop task functions in `script.js`.
-- Implement add, edit, delete, and complete task functions.
-- Implement task search.
-- Implement task statistics.
-- Implement deadline display and deadline reminder.
-- Save task data using Local Storage.
-- Work on User Stories: US2, US3, US4, US5, US8, US11.
+Develop task functions in `script.js`.  
+Implement task deadline and priority functions.  
+Implement deadline display and deadline reminder.  
+Save task data using Local Storage.  
+Help implement task search and task statistics.  
+Test task functions and fix simple JavaScript errors.  
+Work on User Stories: US4, US5, US6, US8, US10, US11, US12.
 
 ### Wang Xv
 
-- Create `login.html` and `register.html`.
-- Implement login, registration, and logout functions.
-- Implement the Settings modal and display name update.
-- Test all functions and fix simple errors.
-- Write project documentation and README file.
-- Work on User Stories: US9, US13, US14, US15.
+Create `login.html` and `register.html`.  
+Implement login, registration, logout, and Settings functions.  
+Update the display name in Settings.  
+Test user account functions.  
+Write the README file and project documentation.  
+Work on User Stories: US9, US13, US14, US15.
 
 ## Technologies Used
 
-- HTML5
-- CSS3
-- JavaScript
-- Local Storage
-- GitHub Pages
-- GitHub
+HTML5
+CSS3
+JavaScript
+Local Storage
+GitHub Pages
+GitHub
 
 ## File Structure
 
