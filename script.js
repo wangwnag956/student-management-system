@@ -80,34 +80,33 @@ if (registerForm) {
   });
 }
 
-/* Login */
+/* Login - any email and password can enter */
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
   loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const email = document.getElementById("loginEmail").value.trim().toLowerCase();
-    const password = document.getElementById("loginPassword").value;
+    const input = document.getElementById("loginEmail").value.trim();
     const message = document.getElementById("loginMessage");
-    const users = getUsers();
 
-    const user = users.find(
-      (savedUser) =>
-        savedUser.email === email && savedUser.password === password
-    );
+    const name = input
+      ? input.split("@")[0].replace(/[._-]/g, " ")
+      : "Student";
 
-    if (!user) {
-      showMessage(message, "Incorrect email or password.");
-      return;
-    }
+    const displayName =
+      name.charAt(0).toUpperCase() + name.slice(1);
 
-    saveCurrentUser({ name: user.name, email: user.email });
+    saveCurrentUser({
+      name: displayName,
+      email: input || "student@taskflow.com",
+    });
+
     showMessage(message, "Login successful. Redirecting...", false);
 
     setTimeout(() => {
       window.location.href = "index.html";
-    }, 500);
+    }, 350);
   });
 }
 
