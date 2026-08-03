@@ -30,7 +30,7 @@ select {
   font: inherit;
 }
 
-/* Login and register pages */
+/* Login and Register */
 .auth-page {
   min-height: 100vh;
   display: grid;
@@ -135,26 +135,12 @@ select {
   background: var(--primary);
   font-weight: 700;
   cursor: pointer;
-  transition: 0.2s ease;
 }
 
 .auth-button:hover,
 .add-button:hover,
 .save-settings:hover {
   background: var(--primary-dark);
-  transform: translateY(-1px);
-}
-
-.auth-footer {
-  margin: 24px 0 0;
-  text-align: center;
-  color: var(--muted);
-}
-
-.auth-footer a {
-  color: var(--primary);
-  font-weight: 700;
-  text-decoration: none;
 }
 
 /* Dashboard */
@@ -339,10 +325,6 @@ select {
   align-items: end;
 }
 
-.task-name-field {
-  grid-column: auto;
-}
-
 .task-form .field-group {
   gap: 7px;
 }
@@ -485,7 +467,7 @@ select {
   margin: 0;
 }
 
-/* Settings modal */
+/* Settings */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -562,7 +544,7 @@ select {
     grid-template-columns: 1fr 1fr;
   }
 
-  .task-name-field {
+  .task-form .field-group:first-child {
     grid-column: 1 / -1;
   }
 
