@@ -1,158 +1,248 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | TaskFlow</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+/* ===== Fix styles for current index.html structure ===== */
 
-<body>
-  <div class="app-layout">
-    <aside class="sidebar">
-      <div class="logo">
-        <span class="logo-icon">✓</span>
-        <span>TaskFlow</span>
-      </div>
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
 
-      <nav class="nav-menu">
-        <a href="index.html" class="nav-link active">Dashboard</a>
-        <a href="#allTasks" class="nav-link">My Tasks</a>
-        <a href="#allTasks" class="nav-link">Completed</a>
-        <a href="#allTasks" class="nav-link">Upcoming</a>
-      </nav>
+.logo {
+  display: flex;
+  width: auto;
+  height: auto;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0;
+  padding: 0 12px;
+  border-radius: 0;
+  background: transparent;
+  color: var(--navy);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.7px;
+}
 
-      <div class="sidebar-bottom">
-        <button id="settingsButton" class="settings-button" type="button">
-          Settings
-        </button>
+.logo-icon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 9px;
+  background: var(--blue-dark);
+  color: var(--white);
+  font-size: 16px;
+}
 
-        <button id="logoutButton" class="logout-button" type="button">
-          Log out
-        </button>
-      </div>
-    </aside>
+.logout-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #a24a4a;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
 
-    <main class="main-content">
-      <header class="dashboard-header">
-        <div>
-          <p class="section-label">STUDENT DASHBOARD</p>
-          <h1>Welcome back, <span id="welcomeUser">Student</span></h1>
-          <p class="header-subtitle">
-            Stay organised and keep your study goals on track.
-          </p>
-        </div>
+.logout-button:hover {
+  background: #fff1f1;
+}
 
-        <div class="profile-circle">ST</div>
-      </header>
+.dashboard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 34px;
+}
 
-      <section class="summary-cards">
-        <article class="summary-card total-card">
-          <p>Total tasks</p>
-          <h2 id="totalTasks">0</h2>
-          <span>Everything you have planned</span>
-        </article>
+.section-label {
+  margin-bottom: 7px;
+  color: var(--blue-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+}
 
-        <article class="summary-card">
-          <p>Completed</p>
-          <h2 id="completedTasks">0</h2>
-          <span>Tasks you have finished</span>
-        </article>
+.dashboard-header h1 {
+  color: var(--navy);
+  font-size: 36px;
+  letter-spacing: -1.2px;
+}
 
-        <article class="summary-card">
-          <p>Remaining</p>
-          <h2 id="remainingTasks">0</h2>
-          <span>Tasks still in progress</span>
-        </article>
-      </section>
+.header-subtitle {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 16px;
+}
 
-      <section class="task-form-card">
-        <p class="section-label">QUICK ADD</p>
-        <h2>Create a new task</h2>
+.profile-circle {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 50%;
+  background: #d9eafa;
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 700;
+}
 
-        <div class="task-form">
-          <div class="form-field task-name-field">
-            <label for="taskInput">Task name</label>
-            <input
-              type="text"
-              id="taskInput"
-              placeholder="e.g. Finish programming assignment"
-            >
-          </div>
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
 
-          <div class="form-field">
-            <label for="deadlineInput">Due date</label>
-            <input type="date" id="deadlineInput">
-          </div>
+.summary-card {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: 0 7px 20px rgba(29, 60, 95, 0.04);
+}
 
-          <div class="form-field">
-            <label for="priorityInput">Priority</label>
-            <select id="priorityInput">
-              <option value="Low">Low</option>
-              <option value="Medium" selected>Medium</option>
-              <option value="High">High</option>
-            </select>
-          </div>
+.total-card {
+  border-color: #c8e0f7;
+  background: #eef7ff;
+}
 
-          <button class="add-task-button" type="button" onclick="addTask()">
-            Add task
-          </button>
-        </div>
-      </section>
+.summary-card p {
+  margin-bottom: 10px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+}
 
-      <section class="search-section">
-        <label for="searchInput">Search tasks</label>
+.summary-card h2 {
+  margin-bottom: 6px;
+  color: var(--navy);
+  font-size: 30px;
+}
 
-        <div class="search-row">
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search by task name..."
-            oninput="searchTasks()"
-          >
-          <span id="taskCount">0 tasks</span>
-        </div>
-      </section>
+.summary-card span {
+  color: #8794a6;
+  font-size: 13px;
+}
 
-      <section class="task-list-card" id="allTasks">
-        <p class="section-label">YOUR PLAN</p>
-        <h2>All tasks</h2>
+.task-form-card,
+.task-list-card {
+  margin-bottom: 24px;
+  padding: 28px 30px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--white);
+  box-shadow: 0 10px 26px rgba(29, 60, 95, 0.05);
+}
 
-        <ul id="taskList" class="task-list"></ul>
+.task-form-card h2,
+.task-list-card h2 {
+  color: var(--navy);
+  font-size: 25px;
+  letter-spacing: -0.5px;
+}
 
-        <div id="emptyMessage" class="empty-message">
-          <div class="empty-icon">✓</div>
-          <h3>No tasks yet</h3>
-          <p>Add your first task above to begin organising your workload.</p>
-        </div>
-      </section>
-    </main>
-  </div>
+.form-field {
+  min-width: 0;
+}
 
-  <div id="settingsModal" class="settings-modal">
-    <div class="settings-content">
-      <button id="closeSettingsButton" class="close-settings" type="button">
-        ×
-      </button>
+.form-field label,
+.search-section label {
+  display: block;
+  margin-bottom: 8px;
+  color: #34465b;
+  font-size: 14px;
+  font-weight: 600;
+}
 
-      <h2>Settings</h2>
-      <p>Update your display name.</p>
+.form-field input,
+.form-field select,
+.search-row input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #d5dfe9;
+  border-radius: 10px;
+  outline: none;
+  background: #fbfdff;
+  color: var(--text);
+  font-size: 15px;
+}
 
-      <label for="displayNameInput">Display name</label>
-      <input
-        type="text"
-        id="displayNameInput"
-        placeholder="Enter your name"
-      >
+.form-field input:focus,
+.form-field select:focus,
+.search-row input:focus {
+  border-color: var(--blue);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(47, 120, 196, 0.12);
+}
 
-      <p id="settingsMessage" class="form-message"></p>
+.add-task-button {
+  padding: 13px 20px;
+  border: none;
+  border-radius: 10px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
 
-      <button id="saveSettingsButton" type="button">
-        Save changes
-      </button>
-    </div>
-  </div>
+.add-task-button:hover {
+  background: var(--blue-dark);
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+.search-section {
+  margin-bottom: 24px;
+  padding: 0 2px;
+}
+
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.search-row input {
+  max-width: 360px;
+  padding: 11px 13px;
+}
+
+#taskCount {
+  color: var(--muted);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.empty-message {
+  padding: 44px 20px 24px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Responsive fix for current classes */
+@media (max-width: 960px) {
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard-header {
+    flex-direction: column;
+  }
+
+  .search-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .search-row input {
+    max-width: none;
+  }
+}
