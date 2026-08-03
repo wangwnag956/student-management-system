@@ -123,6 +123,31 @@
     </div>
   </div>
 
+  <div class="modal-backdrop" id="settingsModal">
+  <section class="settings-modal">
+    <button class="close-modal" id="closeSettingsButton" type="button">&times;</button>
+
+    <h2>Settings</h2>
+    <p>Update your display name.</p>
+
+    <form id="settingsForm" class="settings-form">
+      <div class="field-group">
+        <label for="displayNameInput">Display name</label>
+        <input
+          id="displayNameInput"
+          type="text"
+          placeholder="Enter your name"
+          required
+        />
+      </div>
+
+      <p id="settingsMessage" class="form-message"></p>
+
+      <button class="save-settings" type="submit">Save changes</button>
+    </form>
+  </section>
+</div>
+  
   <script src="script.js"></script>
 </body>
 </html>
