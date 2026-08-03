@@ -140,6 +140,7 @@ function completeTask(index) {
   if (!tasks[index]) return;
 
   tasks[index].completed = !tasks[index].completed;
+  saveTasks();
   displayTasks();
   updateSummary();
 }
@@ -186,6 +187,7 @@ function editTask(index) {
     }
   }
 
+  saveTasks();
   displayTasks();
   updateSummary();
 }
@@ -198,6 +200,7 @@ function deleteTask(index) {
   if (!confirmed) return;
 
   tasks.splice(index, 1);
+  saveTasks();
   displayTasks();
   updateSummary();
 }
@@ -250,6 +253,52 @@ function escapeHtml(text) {
   return temporaryElement.innerHTML;
 }
 
+/* Register page */
+const registerForm = document.getElementById("registerForm");
+
+if (registerForm) {
+  registerForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const username = document.getElementById("registerUsername").value.trim();
+    const email = document.getElementById("registerEmail").value.trim();
+    const password = document.getElementById("registerPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const registerMessage = document.getElementById("registerMessage");
+
+    if (password !== confirmPassword) {
+      registerMessage.textContent = "Passwords do not match.";
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    const userExists = users.some(function (user) {
+      return user.username === username || user.email === email;
+    });
+
+    if (userExists) {
+      registerMessage.textContent = "This username or email already exists.";
+      return;
+    }
+
+    users.push({
+      username: username,
+      email: email,
+      password: password
+    });
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    registerMessage.style.color = "#1c7c54";
+    registerMessage.textContent = "Account created successfully. Please log in.";
+
+    setTimeout(function () {
+      window.location.href = "login.html";
+    }, 1200);
+  });
+}
+
 /* Login page */
 const loginForm = document.getElementById("loginForm");
 
@@ -257,17 +306,27 @@ if (loginForm) {
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
+    const usernameOrEmail = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
     const loginMessage = document.getElementById("loginMessage");
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
 
-    if (username !== "" && password !== "") {
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("currentUser", username);
-      window.location.href = "index.html";
-    } else if (loginMessage) {
-      loginMessage.textContent = "Please enter a username and password.";
+    const user = users.find(function (savedUser) {
+      return (
+        (savedUser.username === usernameOrEmail ||
+          savedUser.email === usernameOrEmail) &&
+        savedUser.password === password
+      );
+    });
+
+    if (!user) {
+      loginMessage.textContent = "Incorrect username, email, or password.";
+      return;
     }
+
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("currentUser", user.username);
+    window.location.href = "index.html";
   });
 }
 
