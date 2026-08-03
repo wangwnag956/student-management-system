@@ -23,7 +23,7 @@ body {
   background: var(--page);
 }
 
-/* ---------------- LOGIN PAGE ---------------- */
+/* ---------------- LOGIN AND REGISTER PAGE ---------------- */
 
 .auth-page {
   display: flex;
@@ -79,7 +79,8 @@ body {
 
 .login-card label,
 .field-group label,
-.search-wrap label {
+.search-wrap label,
+.settings-content label {
   display: block;
   margin-bottom: 8px;
   color: #34465b;
@@ -90,7 +91,8 @@ body {
 .login-card input,
 .field-group input,
 .field-group select,
-.search-wrap input {
+.search-wrap input,
+.settings-content input {
   width: 100%;
   padding: 13px 14px;
   border: 1px solid #d5dfe9;
@@ -105,7 +107,8 @@ body {
 .login-card input:focus,
 .field-group input:focus,
 .field-group select:focus,
-.search-wrap input:focus {
+.search-wrap input:focus,
+.settings-content input:focus {
   border-color: var(--blue);
   background: var(--white);
   box-shadow: 0 0 0 4px rgba(47, 120, 196, 0.12);
@@ -130,7 +133,7 @@ body {
 
 .form-message {
   min-height: 18px;
-  margin-top: 4px;
+  margin-top: 6px;
   color: #cf3f3f;
   font-size: 13px;
 }
@@ -202,7 +205,8 @@ body {
 }
 
 .nav-link,
-.logout-link {
+.logout-link,
+.settings-button {
   display: block;
   width: 100%;
   padding: 12px;
@@ -219,7 +223,8 @@ body {
 }
 
 .nav-link:hover,
-.logout-link:hover {
+.logout-link:hover,
+.settings-button:hover {
   background: #f1f7fd;
   color: var(--blue-dark);
 }
@@ -236,6 +241,11 @@ body {
 }
 
 .logout-link {
+  color: #a24a4a;
+}
+
+.logout-link:hover {
+  background: #fff1f1;
   color: #a24a4a;
 }
 
@@ -289,6 +299,8 @@ body {
   font-weight: 700;
 }
 
+/* Summary cards */
+
 .overview {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -326,6 +338,8 @@ body {
   color: #8794a6;
   font-size: 13px;
 }
+
+/* Task cards */
 
 .task-card,
 .task-list-section {
@@ -373,6 +387,8 @@ body {
   background: var(--blue-dark);
   transform: translateY(-1px);
 }
+
+/* Search and task list */
 
 .toolbar {
   display: flex;
@@ -490,15 +506,29 @@ body {
   color: #267e4d;
 }
 
+.complete-btn:hover {
+  background: #d5f0df;
+}
+
 .edit-btn {
   background: #edf4fb;
   color: #336b9f;
+}
+
+.edit-btn:hover {
+  background: #dcecfb;
 }
 
 .delete-btn {
   background: #fff0ef;
   color: #b94742;
 }
+
+.delete-btn:hover {
+  background: #ffe1df;
+}
+
+/* Empty task list */
 
 .empty-state {
   padding: 44px 20px 24px;
@@ -526,6 +556,87 @@ body {
 
 .empty-state p {
   font-size: 14px;
+}
+
+/* ---------------- SETTINGS MODAL ---------------- */
+
+.settings-modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(23, 59, 102, 0.35);
+}
+
+.settings-modal.show {
+  display: flex;
+}
+
+.settings-content {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--white);
+  box-shadow: 0 20px 55px rgba(24, 54, 86, 0.2);
+}
+
+.settings-content h2 {
+  margin-bottom: 8px;
+  color: var(--navy);
+  font-size: 26px;
+}
+
+.settings-content > p {
+  margin-bottom: 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.settings-content input {
+  margin-bottom: 8px;
+}
+
+.settings-content button:not(.close-settings) {
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: var(--blue-dark);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.settings-content button:not(.close-settings):hover {
+  background: #164b7e;
+}
+
+.close-settings {
+  position: absolute;
+  top: 13px;
+  right: 14px;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #65758a;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.close-settings:hover {
+  background: #f1f5f9;
+  color: var(--navy);
 }
 
 /* ---------------- MOBILE ---------------- */
@@ -576,7 +687,8 @@ body {
   }
 
   .nav-link,
-  .logout-link {
+  .logout-link,
+  .settings-button {
     width: auto;
     flex-shrink: 0;
   }
@@ -652,5 +764,9 @@ body {
 
   .profile-button {
     display: none;
+  }
+
+  .settings-content {
+    padding: 28px 22px;
   }
 }
