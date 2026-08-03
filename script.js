@@ -1,4 +1,22 @@
-let tasks = [];
+function loadTasks() {
+  const savedTasks = localStorage.getItem("tasks");
+
+  if (!savedTasks) {
+    return [];
+  }
+
+  try {
+    return JSON.parse(savedTasks);
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+let tasks = loadTasks();
 
 function addTask() {
   const taskInput = document.getElementById("taskInput");
