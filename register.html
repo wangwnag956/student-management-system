@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | TaskFlow</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="auth-page">
+  <main class="auth-container">
+    <section class="auth-card">
+      <a class="auth-brand" href="index.html">
+        <span class="brand-mark">✓</span>
+        <span>TaskFlow</span>
+      </a>
+
+      <h1>Create your account</h1>
+      <p class="auth-description">
+        Start managing your study tasks in one simple place.
+      </p>
+
+      <form id="registerForm" class="auth-form">
+        <div class="field-group">
+          <label for="registerName">Display name</label>
+          <input
+            id="registerName"
+            type="text"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+
+        <div class="field-group">
+          <label for="registerEmail">Email</label>
+          <input
+            id="registerEmail"
+            type="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        <div class="field-group">
+          <label for="registerPassword">Password</label>
+          <input
+            id="registerPassword"
+            type="password"
+            placeholder="Create a password"
+            minlength="4"
+            required
+          />
+        </div>
+
+        <div class="field-group">
+          <label for="confirmPassword">Confirm password</label>
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Enter your password again"
+            minlength="4"
+            required
+          />
+        </div>
+
+        <p id="registerMessage" class="form-message" aria-live="polite"></p>
+
+        <button class="auth-button" type="submit">Create Account</button>
+      </form>
+
+      <p class="auth-footer">
+        Already have an account?
+        <a href="login.html">Log in</a>
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
