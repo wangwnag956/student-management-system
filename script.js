@@ -29,17 +29,12 @@ function formatDate(dateValue) {
 }
 
 function isToday(dateValue) {
-  if (!dateValue) return false;
-
-  const today = new Date().toISOString().split("T")[0];
-  return dateValue === today;
+  return dateValue === new Date().toISOString().split("T")[0];
 }
 
 function isOverdue(dateValue) {
   if (!dateValue) return false;
-
-  const today = new Date().toISOString().split("T")[0];
-  return dateValue < today;
+  return dateValue < new Date().toISOString().split("T")[0];
 }
 
 /* Register */
@@ -67,8 +62,7 @@ if (registerForm) {
       return;
     }
 
-    const newUser = { name, email, password };
-    users.push(newUser);
+    users.push({ name, email, password });
     saveUsers(users);
     saveCurrentUser({ name, email });
 
@@ -80,7 +74,7 @@ if (registerForm) {
   });
 }
 
-/* Login - any email and password can enter */
+/* Login: any email and password can enter */
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
@@ -90,12 +84,12 @@ if (loginForm) {
     const input = document.getElementById("loginEmail").value.trim();
     const message = document.getElementById("loginMessage");
 
-    const name = input
+    const rawName = input
       ? input.split("@")[0].replace(/[._-]/g, " ")
       : "Student";
 
     const displayName =
-      name.charAt(0).toUpperCase() + name.slice(1);
+      rawName.charAt(0).toUpperCase() + rawName.slice(1);
 
     saveCurrentUser({
       name: displayName,
@@ -131,6 +125,7 @@ if (taskForm) {
     const userName = document.getElementById("userName");
     const profileInitial = document.getElementById("profileInitial");
     const logoutButton = document.getElementById("logoutButton");
+
     const settingsButton = document.getElementById("settingsButton");
     const modalBackdrop = document.getElementById("modalBackdrop");
     const closeModal = document.getElementById("closeModal");
@@ -145,24 +140,37 @@ if (taskForm) {
 
     function updateUserInformation() {
       if (userName) userName.textContent = currentUser.name;
+
       if (profileInitial) {
-        profileInitial.textContent = currentUser.name.charAt(0).toUpperCase();
+        profileInitial.textContent = currentUser.name
+          ? currentUser.name.charAt(0).toUpperCase()
+          : "S";
       }
+    }
+
+    function escapeHtml(text) {
+      const element = document.createElement("div");
+      element.textContent = text;
+      return element.innerHTML;
     }
 
     function renderTasks() {
       const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
-      const tasks = userTasks().filter((task) =>
+      const allTasks = userTasks();
+      const tasks = allTasks.filter((task) =>
         task.name.toLowerCase().includes(keyword)
       );
 
-      const completed = userTasks().filter((task) => task.completed).length;
-      const total = userTasks().length;
+      const completed = allTasks.filter((task) => task.completed).length;
 
-      totalTasks.textContent = total;
-      completedTasks.textContent = completed;
-      remainingTasks.textContent = total - completed;
-      taskCount.textContent = `${tasks.length} task${tasks.length === 1 ? "" : "s"}`;
+      if (totalTasks) totalTasks.textContent = allTasks.length;
+      if (completedTasks) completedTasks.textContent = completed;
+      if (remainingTasks) remainingTasks.textContent = allTasks.length - completed;
+      if (taskCount) {
+        taskCount.textContent = `${tasks.length} task${tasks.length === 1 ? "" : "s"}`;
+      }
+
+      if (!taskList) return;
 
       if (tasks.length === 0) {
         taskList.innerHTML = `
@@ -177,15 +185,16 @@ if (taskForm) {
       taskList.innerHTML = tasks
         .sort((a, b) => Number(a.completed) - Number(b.completed))
         .map((task) => {
-          const deadlineClass = isOverdue(task.date) && !task.completed
-            ? "overdue"
-            : isToday(task.date) && !task.completed
-              ? "today"
-              : "";
+          const deadlineClass =
+            isOverdue(task.date) && !task.completed
+              ? "overdue"
+              : isToday(task.date) && !task.completed
+                ? "today"
+                : "";
 
           return `
             <article class="task-item ${task.completed ? "completed" : ""}">
-              <button class="complete-button" data-action="toggle" data-id="${task.id}" aria-label="Complete task">
+              <button class="complete-button" data-action="toggle" data-id="${task.id}" type="button">
                 ${task.completed ? "✓" : ""}
               </button>
 
@@ -200,8 +209,8 @@ if (taskForm) {
               </div>
 
               <div class="task-actions">
-                <button data-action="edit" data-id="${task.id}">Edit</button>
-                <button class="delete-button" data-action="delete" data-id="${task.id}">Delete</button>
+                <button data-action="edit" data-id="${task.id}" type="button">Edit</button>
+                <button class="delete-button" data-action="delete" data-id="${task.id}" type="button">Delete</button>
               </div>
             </article>
           `;
@@ -209,17 +218,10 @@ if (taskForm) {
         .join("");
     }
 
-    function escapeHtml(text) {
-      const element = document.createElement("div");
-      element.textContent = text;
-      return element.innerHTML;
-    }
-
     taskForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
       const name = taskInput.value.trim();
-
       if (!name) return;
 
       const tasks = getTasks();
@@ -234,7 +236,7 @@ if (taskForm) {
         }
 
         editingTaskId = null;
-        taskForm.querySelector("button[type='submit']").textContent = "Add Task";
+        taskForm.querySelector("button[type='submit']").textContent = "+ Add Task";
       } else {
         tasks.push({
           id: Date.now().toString(),
@@ -251,37 +253,38 @@ if (taskForm) {
       renderTasks();
     });
 
-    taskList.addEventListener("click", (event) => {
-      const button = event.target.closest("button[data-action]");
-      if (!button) return;
+    if (taskList) {
+      taskList.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-action]");
+        if (!button) return;
 
-      const { action, id } = button.dataset;
-      const tasks = getTasks();
-      const task = tasks.find((item) => item.id === id);
+        const { action, id } = button.dataset;
+        const tasks = getTasks();
+        const task = tasks.find((item) => item.id === id);
 
-      if (!task) return;
+        if (!task) return;
 
-      if (action === "toggle") {
-        task.completed = !task.completed;
-        saveTasks(tasks);
-        renderTasks();
-      }
+        if (action === "toggle") {
+          task.completed = !task.completed;
+          saveTasks(tasks);
+          renderTasks();
+        }
 
-      if (action === "delete") {
-        const updatedTasks = tasks.filter((item) => item.id !== id);
-        saveTasks(updatedTasks);
-        renderTasks();
-      }
+        if (action === "delete") {
+          saveTasks(tasks.filter((item) => item.id !== id));
+          renderTasks();
+        }
 
-      if (action === "edit") {
-        taskInput.value = task.name;
-        taskDate.value = task.date || "";
-        taskPriority.value = task.priority;
-        editingTaskId = task.id;
-        taskForm.querySelector("button[type='submit']").textContent = "Save Changes";
-        taskInput.focus();
-      }
-    });
+        if (action === "edit") {
+          taskInput.value = task.name;
+          taskDate.value = task.date || "";
+          taskPriority.value = task.priority;
+          editingTaskId = task.id;
+          taskForm.querySelector("button[type='submit']").textContent = "Save Changes";
+          taskInput.focus();
+        }
+      });
+    }
 
     if (searchInput) {
       searchInput.addEventListener("input", renderTasks);
@@ -290,25 +293,36 @@ if (taskForm) {
     if (logoutButton) {
       logoutButton.addEventListener("click", () => {
         localStorage.removeItem("taskflowCurrentUser");
-        window.location.href = "login.html";
       });
     }
 
+    /* Settings */
     function openSettings() {
-      displayNameInput.value = currentUser.name;
+      if (!modalBackdrop || !displayNameInput) return;
+
+      displayNameInput.value = currentUser.name || "";
       modalBackdrop.classList.add("show");
     }
 
     function closeSettings() {
-      modalBackdrop.classList.remove("show");
+      if (modalBackdrop) {
+        modalBackdrop.classList.remove("show");
+      }
     }
 
-    if (settingsButton) settingsButton.addEventListener("click", openSettings);
-    if (closeModal) closeModal.addEventListener("click", closeSettings);
+    if (settingsButton) {
+      settingsButton.addEventListener("click", openSettings);
+    }
+
+    if (closeModal) {
+      closeModal.addEventListener("click", closeSettings);
+    }
 
     if (modalBackdrop) {
       modalBackdrop.addEventListener("click", (event) => {
-        if (event.target === modalBackdrop) closeSettings();
+        if (event.target === modalBackdrop) {
+          closeSettings();
+        }
       });
     }
 
