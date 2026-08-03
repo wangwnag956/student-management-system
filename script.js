@@ -40,6 +40,8 @@ function addTask() {
     completed: false
   });
 
+  saveTasks();
+
   taskInput.value = "";
   deadlineInput.value = "";
   priorityInput.value = "Medium";
