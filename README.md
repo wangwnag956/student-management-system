@@ -51,47 +51,40 @@ US15 – Update Settings
 ## Task Distribution
 
 ### Wang Zhiyuan
-
-Design and build the Dashboard interface.  
-Create the sidebar navigation and summary cards.  
-Create the task form and task list layout.  
-Write and improve `style.css`.  
-Make the website responsive for mobile devices.  
-Implement add task, edit task, delete task, and complete task functions.  
-Implement task search and task statistics.  
-Work on User Stories: US1, US2, US3, US6, US7, US8, US10, US11, US12.
+Designed and built the main web application interface and overall architecture.
+Implemented the core web pages, including login, registration, dashboard, and settings pages.
+Built the main functional modules, including task creation, editing, deletion, completion, search, and statistics.
+Designed and implemented database/data persistence functionality.
+Implemented user authentication, account management, and user-related features.
+Developed responsive layouts for mobile devices.
+Integrated and tested the core system functions.
 
 ### Wu Jiawei
-
-Develop task functions in `script.js`.  
-Implement task deadline and priority functions.  
-Implement deadline display and deadline reminder.  
-Save task data using Local Storage.  
-Help implement task search and task statistics.  
-Test task functions and fix simple JavaScript errors.  
-Work on User Stories: US4, US5, US6, US8, US10, US11, US12.
+Mainly responsible for analyzing, writing, and organizing User Stories.
+Assisted with defining task requirements, priorities, deadlines, and functional workflows.
+Supported functional testing and identified simple JavaScript issues.
+Helped organize task-related content and verify whether features met the User Story requirements.
+Work on User Stories: US1, US2, US3, US6, US7, US8, US9, US10, US11, US12, US13, US14, US15.
 
 ### Wang Xv
-
-Create `login.html` and `register.html`.  
-Implement login, registration, logout, and Settings functions.  
-Update the display name in Settings.  
-Test user account functions.  
-Write the README file and project documentation.  
-Work on User Stories: US9, US13, US14, US15.
+Mainly responsible for organizing project materials and documentation.
+Assisted with README writing, project structure organization, and feature descriptions.
+Helped test account-related pages and organize interface content.
+Supported the preparation and presentation of project results.
 
 ## Technologies Used
 
-HTML5
-CSS3
-JavaScript
-Local Storage
-GitHub Pages
-GitHub
+HTML5  
+CSS3  
+JavaScript  
+Local Storage  
+Supabase  
+Visual Studio Code 
+GitHub Pages  
+GitHub  
 
 ## File Structure
 
-```text  
 TaskFlow/  
 ├── index.html  
 ├── login.html  
