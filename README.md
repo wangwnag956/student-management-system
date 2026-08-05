@@ -118,4 +118,4 @@ After deployment, users can open the website through the GitHub Pages link.
 
 Conclusion
 TaskFlow provides a simple and useful way for students to organise study tasks.
-The project demonstrates HTML, CSS, JavaScript, Local Storage, teamwork, testing, and GitHub version control.
+ The project demonstrates HTML, CSS, JavaScript, Local Storage, teamwork, testing, and GitHub version control.
