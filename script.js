@@ -49,7 +49,7 @@ function isOverdue(dateValue) {
 const registerForm = document.getElementById("registerForm");
 
 if (registerForm) {
-  registerForm.addEventListener("submit", (event) => {
+  registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const name = document.getElementById("registerName").value.trim();
@@ -63,52 +63,59 @@ if (registerForm) {
       return;
     }
 
-    const users = getUsers();
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          display_name: name
+        }
+      }
+    });
 
-    if (users.some((user) => user.email === email)) {
-      showMessage(message, "This email is already registered.");
+    if (error) {
+      showMessage(message, error.message);
       return;
     }
 
-    users.push({ name, email, password });
-    saveUsers(users);
-    saveCurrentUser({ name, email });
-
-    showMessage(message, "Account created. Redirecting...", false);
+    showMessage(
+      message,
+      "Account created. Please check your email to confirm your account.",
+      false
+    );
 
     setTimeout(() => {
-      window.location.href = "index.html";
-    }, 700);
+      window.location.href = "login.html";
+    }, 1500);
   });
 }
 
-/* Login: any email and password can enter */
+/* Login */
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
-  loginForm.addEventListener("submit", (event) => {
+  loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const input = document.getElementById("loginEmail").value.trim();
+    const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+    const password = document.getElementById("loginPassword").value;
     const message = document.getElementById("loginMessage");
 
-    const rawName = input
-      ? input.split("@")[0].replace(/[._-]/g, " ")
-      : "Student";
-
-    const displayName =
-      rawName.charAt(0).toUpperCase() + rawName.slice(1);
-
-    saveCurrentUser({
-      name: displayName,
-      email: input || "student@taskflow.com",
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
     });
+
+    if (error) {
+      showMessage(message, error.message);
+      return;
+    }
 
     showMessage(message, "Login successful. Redirecting...", false);
 
     setTimeout(() => {
       window.location.href = "index.html";
-    }, 350);
+    }, 500);
   });
 }
 
@@ -116,11 +123,19 @@ if (loginForm) {
 const taskForm = document.getElementById("taskForm");
 
 if (taskForm) {
-  const currentUser = getCurrentUser();
+  supabaseClient.auth.getSession().then(({ data, error }) => {
+    if (error || !data.session) {
+      window.location.href = "login.html";
+      return;
+    }
 
-  if (!currentUser) {
-    window.location.href = "login.html";
-  } else {
+    const currentUser = {
+      name:
+        data.session.user.user_metadata.display_name ||
+        data.session.user.email.split("@")[0],
+      email: data.session.user.email,
+    };
+
     const taskInput = document.getElementById("taskInput");
     const taskDate = document.getElementById("taskDate");
     const taskPriority = document.getElementById("taskPriority");
@@ -163,7 +178,10 @@ if (taskForm) {
     }
 
     function renderTasks() {
-      const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
+      const keyword = searchInput
+        ? searchInput.value.trim().toLowerCase()
+        : "";
+
       const allTasks = userTasks();
       const tasks = allTasks.filter((task) =>
         task.name.toLowerCase().includes(keyword)
@@ -174,8 +192,11 @@ if (taskForm) {
       if (totalTasks) totalTasks.textContent = allTasks.length;
       if (completedTasks) completedTasks.textContent = completed;
       if (remainingTasks) remainingTasks.textContent = allTasks.length - completed;
+
       if (taskCount) {
-        taskCount.textContent = `${tasks.length} task${tasks.length === 1 ? "" : "s"}`;
+        taskCount.textContent = `${tasks.length} task${
+          tasks.length === 1 ? "" : "s"
+        }`;
       }
 
       if (!taskList) return;
@@ -184,7 +205,7 @@ if (taskForm) {
         taskList.innerHTML = `
           <div class="empty-state">
             <h3>No tasks found</h3>
-            <p>Add a new task to get started.</p>
+            <p>Add a new task to get started.</p >
           </div>
         `;
         return;
@@ -202,14 +223,21 @@ if (taskForm) {
 
           return `
             <article class="task-item ${task.completed ? "completed" : ""}">
-              <button class="complete-button" data-action="toggle" data-id="${task.id}" type="button">
+              <button
+                class="complete-button"
+                data-action="toggle"
+                data-id="${task.id}"
+                type="button"
+              >
                 ${task.completed ? "✓" : ""}
               </button>
 
               <div class="task-details">
                 <h3>${escapeHtml(task.name)}</h3>
                 <div class="task-meta">
-                  <span class="priority priority-${task.priority.toLowerCase()}">${task.priority}</span>
+                  <span class="priority priority-${task.priority.toLowerCase()}">
+                    ${task.priority}
+                  </span>
                   <span class="deadline ${deadlineClass}">
                     ${task.date ? `Due: ${formatDate(task.date)}` : "No deadline"}
                   </span>
@@ -217,8 +245,17 @@ if (taskForm) {
               </div>
 
               <div class="task-actions">
-                <button data-action="edit" data-id="${task.id}" type="button">Edit</button>
-                <button class="delete-button" data-action="delete" data-id="${task.id}" type="button">Delete</button>
+                <button data-action="edit" data-id="${task.id}" type="button">
+                  Edit
+                </button>
+                <button
+                  class="delete-button"
+                  data-action="delete"
+                  data-id="${task.id}"
+                  type="button"
+                >
+                  Delete
+                </button>
               </div>
             </article>
           `;
@@ -244,7 +281,8 @@ if (taskForm) {
         }
 
         editingTaskId = null;
-        taskForm.querySelector("button[type='submit']").textContent = "+ Add Task";
+        taskForm.querySelector("button[type='submit']").textContent =
+          "+ Add Task";
       } else {
         tasks.push({
           id: Date.now().toString(),
@@ -288,7 +326,10 @@ if (taskForm) {
           taskDate.value = task.date || "";
           taskPriority.value = task.priority;
           editingTaskId = task.id;
-          taskForm.querySelector("button[type='submit']").textContent = "Save Changes";
+
+          taskForm.querySelector("button[type='submit']").textContent =
+            "Save Changes";
+
           taskInput.focus();
         }
       });
@@ -299,10 +340,68 @@ if (taskForm) {
     }
 
     if (logoutButton) {
-      logoutButton.addEventListener("click", () => {
-        localStorage.removeItem("taskflowCurrentUser");
+      logoutButton.addEventListener("click", async () => {
+        await supabaseClient.auth.signOut();
+        window.location.href = "login.html";
       });
     }
+
+    /* Settings */
+    function openSettings() {
+      if (!modalBackdrop || !displayNameInput) return;
+
+      displayNameInput.value = currentUser.name || "";
+      modalBackdrop.classList.add("show");
+    }
+
+    function closeSettings() {
+      if (modalBackdrop) {
+        modalBackdrop.classList.remove("show");
+      }
+    }
+
+    if (settingsButton) {
+      settingsButton.addEventListener("click", openSettings);
+    }
+
+    if (closeModal) {
+      closeModal.addEventListener("click", closeSettings);
+    }
+
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener("click", (event) => {
+        if (event.target === modalBackdrop) {
+          closeSettings();
+        }
+      });
+    }
+
+    if (settingsForm) {
+      settingsForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const newName = displayNameInput.value.trim();
+        if (!newName) return;
+
+        const { error } = await supabaseClient.auth.updateUser({
+          data: { display_name: newName },
+        });
+
+        if (error) {
+          alert(error.message);
+          return;
+        }
+
+        currentUser.name = newName;
+        updateUserInformation();
+        closeSettings();
+      });
+    }
+
+    updateUserInformation();
+    renderTasks();
+  });
+}
 
     /* Settings */
     function openSettings() {
