@@ -6,6 +6,7 @@
   <title>Register | TaskFlow</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body class="auth-page">
   <main class="auth-container">
     <section class="auth-card">
@@ -74,9 +75,8 @@
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <!-- 顺序不能改：Supabase 必须在 script.js 前面 -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
-  
 </body>
 </html>
