@@ -1,3 +1,11 @@
+const SUPABASE_URL = "https://xebfwmrxhclfyxbvwdfe.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_lLBd1XSf2nSmRZzN_6IVPg_P7xOjkBa";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
 const getUsers = () => JSON.parse(localStorage.getItem("taskflowUsers")) || [];
 const saveUsers = (users) =>
   localStorage.setItem("taskflowUsers", JSON.stringify(users));
