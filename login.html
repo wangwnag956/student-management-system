@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Log in | TaskFlow</title>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -18,10 +17,10 @@
 
       <form id="loginForm" class="login-form">
         <div class="login-field">
-          <label for="loginEmail">Email or Username</label>
+          <label for="loginEmail">Email</label>
           <input
             id="loginEmail"
-            type="text"
+            type="email"
             placeholder="Enter your email"
             required
           />
@@ -37,7 +36,7 @@
           />
         </div>
 
-        <p id="loginMessage" class="form-message"></p>
+        <p id="loginMessage" class="form-message" aria-live="polite"></p>
 
         <button class="login-button" type="submit">Log in</button>
       </form>
@@ -48,9 +47,8 @@
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <!-- Supabase 必须在 script.js 前面，而且每个只出现一次 -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
-  
 </body>
 </html>
