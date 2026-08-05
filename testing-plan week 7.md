@@ -70,3 +70,4 @@ US8: Search Task
 | Search for an existing task | Search `homework` | Matching task(s) are returned |
 | Search is case-insensitive | Search `HOMEWORK` for task `homework` | Matching task(s) are returned |
 | Search for a task that does not exist | Search `shopping` | An empty result is returned |
+  
