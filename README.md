@@ -74,13 +74,13 @@ It helps students create, organise, search, edit, complete, and manage their stu
 
 Designed and built the main web application interface and overall architecture. Implemented the core web pages, including login, registration, dashboard, and settings pages. Built the main functional modules, including task creation, editing, deletion, completion, search, statistics, and task history. Implemented user authentication and account management using Supabase. Developed responsive layouts for mobile devices and integrated and tested the core system functions.
 
-### Wu Jiawei
+### Wu Jiawei（WuJiawei25）
 
 Mainly responsible for analysing, writing, and organising User Stories. Assisted with defining task requirements, priorities, deadlines, and functional workflows. Supported functional testing and identified simple JavaScript issues. Helped organise task-related content and verify whether features met the User Story requirements.
 
 Work on User Stories: US1, US2, US3, US6, US7, US8, US9, US10, US11, US12, US13, US14, US15.
 
-### Wang Xv
+### Wang Xv（12qqwd）
 
 Mainly responsible for organising project materials and documentation. Assisted with README writing, project structure organisation, and feature descriptions. Helped test account-related pages and organise interface content. Supported the preparation and presentation of project results.
 
