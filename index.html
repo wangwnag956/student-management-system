@@ -20,6 +20,12 @@
         <a class="nav-link" href="#tasks">My Tasks</a>
       </nav>
 
+      <nav class="nav-menu">
+  <a class="nav-link active" href="index.html">Dashboard</a>
+  <a class="nav-link" href="#tasks">My Tasks</a>
+  <a class="nav-link" href="#history">History</a>
+      </nav>
+
       <div class="sidebar-bottom">
         <button class="settings-button" id="settingsButton" type="button">
           ⚙ Settings
@@ -108,9 +114,23 @@
           </div>
         </div>
 
-        <div class="task-list" id="taskList"></div>
-      </section>
-    </main>
+       <div class="task-list" id="taskList"></div>
+</section>
+
+<section class="task-list-section history-section" id="history">
+  <div class="section-title-row">
+    <div>
+      <p class="eyebrow">TASK HISTORY</p>
+      <h2 class="card-heading">Deleted Tasks</h2>
+    </div>
+
+    <span class="task-count" id="historyCount">0 deleted</span>
+  </div>
+
+  <div class="task-list" id="historyList"></div>
+</section>
+
+  </main>
   </div>
 
     <div class="modal-backdrop" id="modalBackdrop">
