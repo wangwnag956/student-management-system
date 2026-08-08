@@ -70,7 +70,7 @@ It helps students create, organise, search, edit, complete, and manage their stu
 
 ## Task Distribution
 
-### Wang Zhiyuan
+### Wang Zhiyuan（wangwnag956 ）
 
 Designed and built the main web application interface and overall architecture. Implemented the core web pages, including login, registration, dashboard, and settings pages. Built the main functional modules, including task creation, editing, deletion, completion, search, statistics, and task history. Implemented user authentication and account management using Supabase. Developed responsive layouts for mobile devices and integrated and tested the core system functions.
 
