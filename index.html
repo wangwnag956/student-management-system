@@ -113,7 +113,7 @@
     </main>
   </div>
 
-  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-backdrop" id="modalBackdrop">
     <section class="settings-modal">
       <button class="close-modal" id="closeModal" type="button">&times;</button>
 
@@ -136,6 +136,8 @@
     </section>
   </div>
 
+  <!-- Supabase must load before script.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
 </html>
